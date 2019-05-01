@@ -12,7 +12,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.JpaUtil;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
+import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -47,15 +49,19 @@ public class ActionServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String todo = request.getParameter("todo");
 
-        if ("connexion".equals(todo)) {
-            //APPEL SERVICE VERIFICATION
+        if ("inscription".equals(todo)) {
+            InscriptionAction ia = new InscriptionAction();
+            ia.execute(request);
+            InscriptionSerialiser is = new InscriptionSerialiser();
+            is.serialiser(request, response);
+            DebugLogger.log("Inscription !");
+        } else if ("connexion".equals(todo)) {
             ConnexionAction ca = new ConnexionAction();
             ca.execute(request);
             ConnexionSerialiser cs = new ConnexionSerialiser();
             cs.serialiser(request, response);
             session.setAttribute("utilisateur", request.getAttribute("login"));
-        }
-        /*} else {
+        } else {
             String user = (String) session.getAttribute("utilisateur");
 
             if (user == null) {
@@ -66,12 +72,13 @@ public class ActionServlet extends HttpServlet {
                         break;
                 }
 
-                if (action == null) {
+                if (todo == null) {
                     response.sendError(400, "Bad Request (Wrong TODO parameter");
                 } else {
-                    boolean actionStatus = action.executer(request);
+                    //boolean actionStatus = .execute(request);
                 }
-            }*/
+            }
+        }
     }
 
     @Override

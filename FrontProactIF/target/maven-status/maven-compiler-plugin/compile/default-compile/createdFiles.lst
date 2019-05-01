@@ -1,1 +1,7 @@
 fr\insalyon\dasi\frontproactif\ActionServlet.class
+fr\insalyon\dasi\frontproactif\Action\ConnexionAction.class
+fr\insalyon\dasi\frontproactif\Action\Action.class
+fr\insalyon\dasi\frontproactif\Serialisation\InscriptionSerialiser.class
+fr\insalyon\dasi\frontproactif\Action\InscriptionAction.class
+fr\insalyon\dasi\frontproactif\Serialisation\Serialisation.class
+fr\insalyon\dasi\frontproactif\Serialisation\ConnexionSerialiser.class

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>ProactIF Inscription</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <h1>Formulaire d'inscription</h1>
+        <form>
+            <span>Nom : </span> 
+            <input type="text" id="champ-nom" name="nom" placeholder="Nom" />
+            <br>
+            <span>Prénom : </span>
+            <input type="text" id="champ-prenom" name="prenom" placeholder="Prénom" />
+            <br>
+            <span>Civilité : </span>
+            <select id ="champ-civilite" name="civilite">
+                <option>Monsieur
+                <option>Madame
+            </select>
+            <br>
+            <span>Adresse : </span>
+            <input type="text" id="champ-adresse" name="adresse" placeholder="Adresse" />
+            <br>
+            <span>Ville : </span>
+            <input type="text" id="champ-ville" name="ville" placeholder="Ville" />
+            <br>
+            <span>Telephone : </span>
+            <input type="text" id="champ-telephone" name="telephone" placeholder="Téléphone" />
+            <br>
+            <span>Date de Naissance : </span>
+            <input type="date" id="champ-naissance" name="naissance">
+            <br>
+            <br>
+            <span>Email : </span>
+            <input type="email" id = "champ-email" name="email" placeholder="E-mail">
+            <br>
+            <span>Mot de Passe : </span>
+            <input type="password" id = "champ-mdp" name="mdp" placeholder="Mot de Passe">
+        </form>
+        <button id="bouton-inscription">S'inscrire</button>
+        <div id="message"></div>
+        
+        <script>
+
+            function inscription() {
+                var champNom = $('#champ-nom').val();
+                var champPrenom = $('#champ-prenom').val();
+                var champCivilite = $('#champ-civilite').val();
+                var champAdresse = $('#champ-adresse').val();
+                var champVille = $('#champ-ville').val();
+                var champTel = $('#champ-telephone').val();
+                var champNaissance = $('#champ-naissance').val();
+                var champEmail = $('#champ-email').val();
+                var champPassword = $('#champ-mdp').val();
+
+                $('#message').html('Connexion en cours...');
+
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'inscription',
+                        nom: champNom,
+                        prenom: champPrenom,
+                        civilite: champCivilite,
+                        adresse: champAdresse,
+                        ville: champVille,
+                        tel: champTel,
+                        naissance: champNaissance,
+                        email: champEmail,
+                        password: champPassword
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.inscription === true) {
+                        $('#message').html('Inscription réussie !');
+                        window.location = "test.html";
+                    } else {
+                        console.log(data.connexion);
+                        $('#message').html("Echec de l'inscription");
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                // ajout d'un "handler" sur le clic du bouton de connexion
+                $('#bouton-inscription').on('click', function () {
+                    // affichage pour debugage dans la console javascript du navigateur
+                    console.log('Clic sur le bouton "S inscrire"');
+                    // appel de la fonction connexion
+                    inscription();
+                });
+            });
+
+        </script>
+        
+    </body>
+</html>

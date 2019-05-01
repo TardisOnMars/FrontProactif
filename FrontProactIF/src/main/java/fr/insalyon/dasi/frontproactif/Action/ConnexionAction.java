@@ -19,10 +19,11 @@ public class ConnexionAction extends Action {
     public boolean execute(HttpServletRequest request){
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+        request.setAttribute("connexion", true);
         Personne p = Service.ValiditeConnexion(login, password);
         
-        if(p != null){
-            request.setAttribute("connexion", true);
+        if(p == null){
+            request.setAttribute("connexion", false);
         }
         return true;
     }
