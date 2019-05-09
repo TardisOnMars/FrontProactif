@@ -5,11 +5,6 @@
  */
 package fr.insalyon.dasi.frontproactif;
 
-import metier.service.Service;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import dao.JpaUtil;
 import fr.insalyon.dasi.frontproactif.Action.Action;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
@@ -20,8 +15,6 @@ import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,12 +57,14 @@ public class ActionServlet extends HttpServlet {
             ca.execute(request);
             ConnexionSerialiser cs = new ConnexionSerialiser();
             cs.serialiser(request, response);
+            DebugLogger.log(((Personne)request.getAttribute("connexion")).getNom());
             session.setAttribute("utilisateur", request.getAttribute("connexion"));
         } else {
             Personne user = (Personne)session.getAttribute("utilisateur");
 
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
+                DebugLogger.log("User is null !");
             } else {
                 Action a = null;
                 Serialisation s = null;
