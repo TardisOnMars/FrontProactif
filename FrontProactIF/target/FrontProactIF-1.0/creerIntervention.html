@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Créer intervention</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
         <span>Catégorie</span>
@@ -25,8 +26,9 @@ and open the template in the editor.
         <input type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
         <span id="descritpion">Description</span>
         <input type="text" id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"/>
+        <button id="bouton-creer">Créer l'intervention</button>
         <script>
-             function creerintervention() {
+             function creerIntervention() {
                 var type = $('#champ-categorie').val();
                 var nomanim = $('#champ-nom').val();
                 var nomobj = $('#champ-objet').val();
@@ -46,7 +48,7 @@ and open the template in the editor.
                     },
                     dataType: 'json'
                 }).done(function (data) {
-                    if (data.connexion === true) {
+                    if (data.intervention === true) {
                         window.location = "test.html";
                     } else {
                     }
@@ -55,11 +57,11 @@ and open the template in the editor.
 
             $(document).ready(function () {
                 // ajout d'un "handler" sur le clic du bouton de connexion
-                $('#bouton-connexion').on('click', function () {
+                $('#bouton-creer').on('click', function () {
                     // affichage pour debugage dans la console javascript du navigateur
                     console.log('Clic sur le bouton "Se Connecter"');
                     // appel de la fonction connexion
-                    connexion();
+                    creerIntervention();
                 });
             });
 
