@@ -11,10 +11,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dao.JpaUtil;
+import fr.insalyon.dasi.frontproactif.Action.Action;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
+import fr.insalyon.dasi.frontproactif.Action.CreerInterventionAction;
 import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -67,10 +71,16 @@ public class ActionServlet extends HttpServlet {
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
             } else {
+                Action a = null;
+                Serialisation s = null;
                 switch (todo) {
                     case "afficherHistorique":
                         break;
-                    case "affichertruc":
+                    case "creerIntervention":
+                        a = new CreerInterventionAction();
+                        a.execute(request);
+                        s = new CreerInterventionSerialiser();
+                        s.serialiser(request, response);
                         break;
                 }
 

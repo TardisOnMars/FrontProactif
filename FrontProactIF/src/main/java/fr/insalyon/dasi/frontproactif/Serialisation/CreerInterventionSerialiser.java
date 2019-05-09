@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import metier.model.Client;
 
 /**
  *
@@ -23,10 +24,10 @@ public class CreerInterventionSerialiser extends Serialisation{
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
             JsonObject jsonContainer = new JsonObject();
-            if ((boolean)request.getAttribute("intervention")) {
-                jsonContainer.addProperty("intervention", true);
-            } else {
+            if ((Client)request.getAttribute("intervention") == null) {
                 jsonContainer.addProperty("intervention", false);
+            } else {
+                jsonContainer.addProperty("intervention", true);
             }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jsonContainer, out);
