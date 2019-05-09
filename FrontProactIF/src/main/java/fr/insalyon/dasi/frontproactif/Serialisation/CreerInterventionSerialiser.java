@@ -24,7 +24,7 @@ public class CreerInterventionSerialiser extends Serialisation{
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
             JsonObject jsonContainer = new JsonObject();
-            if ((Client)request.getAttribute("intervention") == null) {
+            if ((boolean)request.getAttribute("intervention") == false) {
                 jsonContainer.addProperty("intervention", false);
             } else {
                 jsonContainer.addProperty("intervention", true);
