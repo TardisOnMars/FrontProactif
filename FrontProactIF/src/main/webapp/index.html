@@ -6,52 +6,9 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <h1>Formulaire de login</h1>
-        <span>Identifiant :</span> 
-        <input type="text" id="champ-login" name="login" placeholder="Votre Identifiant" /><br>
-        <span>Mot de passe : </span>
-        <input type="password" id="champ-password" name="password" placeholder="Votre Mot de Passe" /><br>
-        <button id="bouton-connexion">Se connecter</button>   
-        <div id="message"></div>
-
-        <script>
-
-            function connexion() {
-                var champLogin = $('#champ-login').val();
-                var champPassword = $('#champ-password').val();
-
-                $('#message').html('Connexion en cours...');
-
-                $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'connexion',
-                        login: champLogin,
-                        password: champPassword
-                    },
-                    dataType: 'json'
-                }).done(function (data) {
-                    if (data.connexion === true) {
-                        $('#message').html('Connexion réussie !');
-                        window.location = "test.html";
-                    } else {
-                        console.log(data.connexion);
-                        $('#message').html('Echec de la connexion');
-                    }
-                });
-            }
-
-            $(document).ready(function () {
-                // ajout d'un "handler" sur le clic du bouton de connexion
-                $('#bouton-connexion').on('click', function () {
-                    // affichage pour debugage dans la console javascript du navigateur
-                    console.log('Clic sur le bouton "Se Connecter"');
-                    // appel de la fonction connexion
-                    connexion();
-                });
-            });
-
-        </script>
+        <h1>Proactif !</h1>
+        <h2>Bienvenue sur le site d'aide à la personne nouvelle génération !</h2>
+        <a href='connexion.html'>Connexion !</a>
+        <a href='inscription.html'>Inscription !</a>
     </body>
 </html>
