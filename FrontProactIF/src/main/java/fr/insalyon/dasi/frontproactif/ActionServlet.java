@@ -77,6 +77,13 @@ public class ActionServlet extends HttpServlet {
                         s = new CreerInterventionSerialiser();
                         s.serialiser(request, response);
                         break;
+                    case "interventionEnCours":
+                        a = new CreerInterventionAction();
+                        request.setAttribute("client", user);
+                        a.execute(request);
+                        s = new CreerInterventionSerialiser();
+                        s.serialiser(request, response);
+                        break;
                 }
 
                 if (todo == null) {
