@@ -60,14 +60,16 @@ public class ActionServlet extends HttpServlet {
             ca.execute(request);
             ConnexionSerialiser cs = new ConnexionSerialiser();
             cs.serialiser(request, response);
-            session.setAttribute("utilisateur", request.getAttribute("login"));
+            session.setAttribute("utilisateur", request.getAttribute("connexion"));
         } else {
-            String user = (String) session.getAttribute("utilisateur");
+            Personne user = (Personne)session.getAttribute("utilisateur");
 
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
             } else {
                 switch (todo) {
+                    case "afficherHistorique":
+                        break;
                     case "affichertruc":
                         break;
                 }
