@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import metier.model.Personne;
 
 /**
  *
@@ -25,10 +24,10 @@ public class ConnexionSerialiser extends Serialisation {
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
             JsonObject jsonContainer = new JsonObject();
-            if ((Personne)request.getAttribute("connexion") == null) {
-                jsonContainer.addProperty("connexion", false);
-            } else {
+            if ((boolean)request.getAttribute("connexion")) {
                 jsonContainer.addProperty("connexion", true);
+            } else {
+                jsonContainer.addProperty("connexion", false);
             }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jsonContainer, out);
