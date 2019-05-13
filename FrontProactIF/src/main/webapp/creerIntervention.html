@@ -18,14 +18,19 @@ and open the template in the editor.
             <option>Incident</option>
             <option>Livraison</option>
         </select>
+        <br>
         <span id="nom-animal">Nom de l'animal</span>
         <input type="text" id="champ-nom" name="animal" placeholder="Médor"/>
+        <br>
         <span id="nom-objet">Objet</span>
         <input type="text" id="champ-objet" name="objet" placeholder="Colis"/>
+        <br>
         <span id="nom-entreprise">Entreprise</span>
         <input type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
-        <span id="descritpion">Description</span>
+        <br>
+        <span id="description">Description</span>
         <input type="text" id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"/>
+        <br>
         <button id="bouton-creer">Créer l'intervention</button>
         <script>
              function creerIntervention() {
@@ -59,7 +64,7 @@ and open the template in the editor.
                 // ajout d'un "handler" sur le clic du bouton de connexion
                 $('#bouton-creer').on('click', function () {
                     // affichage pour debugage dans la console javascript du navigateur
-                    console.log('Clic sur le bouton "Se Connecter"');
+                    console.log('Clic sur le bouton "Créer Intervention"');
                     // appel de la fonction connexion
                     creerIntervention();
                 });

@@ -5,17 +5,16 @@
  */
 package fr.insalyon.dasi.frontproactif;
 
-import metier.service.Service;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import dao.JpaUtil;
+import fr.insalyon.dasi.frontproactif.Action.Action;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
+import fr.insalyon.dasi.frontproactif.Action.CreerInterventionAction;
+import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +28,7 @@ import util.DebugLogger;
  *
  * @author svillenave
  */
+
 @WebServlet(name = "ActionServlet", urlPatterns = {"/ActionServlet"})
 public class ActionServlet extends HttpServlet {
 
@@ -47,31 +47,54 @@ public class ActionServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String todo = request.getParameter("todo");
 
-        if ("connexion".equals(todo)) {
-            //APPEL SERVICE VERIFICATION
+        if ("inscription".equals(todo)) {
+            InscriptionAction ia = new InscriptionAction();
+            ia.execute(request);
+            InscriptionSerialiser is = new InscriptionSerialiser();
+            is.serialiser(request, response);
+            DebugLogger.log("Inscription !");
+        } else if ("connexion".equals(todo)) {
             ConnexionAction ca = new ConnexionAction();
             ca.execute(request);
             ConnexionSerialiser cs = new ConnexionSerialiser();
             cs.serialiser(request, response);
-            session.setAttribute("utilisateur", request.getAttribute("login"));
-        }
-        /*} else {
-            String user = (String) session.getAttribute("utilisateur");
+            DebugLogger.log(((Personne) request.getAttribute("connexion")).getNom());
+            session.setAttribute("utilisateur", request.getAttribute("connexion"));
+        } else {
+            Personne user = (Personne)session.getAttribute("utilisateur");
+            DebugLogger.log(user.getNom());
 
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
+                DebugLogger.log("Forbidden");
             } else {
+                Action a = null;
+                Serialisation s = null;
                 switch (todo) {
-                    case "affichertruc":
+                    case "afficherHistorique":
+                        break;
+                    case "creerIntervention":
+                        a = new CreerInterventionAction();
+                        a.execute(request);
+                        s = new CreerInterventionSerialiser();
+                        s.serialiser(request, response);
+                        break;
+                    case "interventionEnCours":
+                        a = new CreerInterventionAction();
+                        request.setAttribute("client", user);
+                        a.execute(request);
+                        s = new CreerInterventionSerialiser();
+                        s.serialiser(request, response);
                         break;
                 }
 
-                if (action == null) {
+                if (todo == null) {
                     response.sendError(400, "Bad Request (Wrong TODO parameter");
                 } else {
-                    boolean actionStatus = action.executer(request);
+                    //boolean actionStatus = .execute(request);
                 }
-            }*/
+            }
+        }
     }
 
     @Override

@@ -24,7 +24,7 @@ public class ConnexionSerialiser extends Serialisation {
         try (PrintWriter out = response.getWriter()) {
             response.setContentType("text/html;charset=UTF-8");
             JsonObject jsonContainer = new JsonObject();
-            if ((boolean)request.getAttribute("connexion")) {
+            if (request.getAttribute("connexion") != null) {
                 jsonContainer.addProperty("connexion", true);
             } else {
                 jsonContainer.addProperty("connexion", false);

@@ -23,7 +23,6 @@ public class CreerInterventionAction extends Action{
     @Override
     public boolean execute(HttpServletRequest request){
         String type = request.getParameter("type");
-        DebugLogger.log(type);
         String nomAnimal = request.getParameter("nomAnimal");
         String objet = request.getParameter("objet");
         String entreprise = request.getParameter("entreprise");
@@ -32,6 +31,7 @@ public class CreerInterventionAction extends Action{
         Client c = (Client)request.getAttribute("utilisateur");
         
         request.setAttribute("intervention", true);
+        DebugLogger.log(c.getNom()+" Intervention");
         
         Intervention i;
         if(type.equals("Animal")){
@@ -45,6 +45,8 @@ public class CreerInterventionAction extends Action{
             DebugLogger.log("i is null");
             request.setAttribute("intervention", false);
         }
+        DebugLogger.log((i.getClient()).getNom()+" Intervention");
+        
         boolean b = Service.EnregistrerIntervention(i);
         
         if(!b){
