@@ -13,12 +13,14 @@ import fr.insalyon.dasi.frontproactif.Action.CreerInterventionAction;
 import fr.insalyon.dasi.frontproactif.Action.HistoriqueAction;
 import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Action.InterventionCoursAction;
+import fr.insalyon.dasi.frontproactif.Action.InterventionsJourAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.CloturerSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.HistoriqueSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InterventionCoursSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.InterventionsJourSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -97,8 +99,13 @@ public class ActionServlet extends HttpServlet {
                     case "cloturerIntervention":
                         a = new CloturerAction();
                         a.execute(request);
-                        DebugLogger.log((String)request.getAttribute("commentaire"));
                         s = new CloturerSerialiser();
+                        s.serialiser(request, response);
+                        break;
+                    case "interventionsJour":
+                        a = new InterventionsJourAction();
+                        a.execute(request);
+                        s = new InterventionsJourSerialiser();
                         s.serialiser(request, response);
                         break;
                 }
