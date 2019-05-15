@@ -12,19 +12,59 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import metier.model.Animal;
+import metier.model.Client;
+import metier.model.Employe;
+import metier.model.Incident;
+import metier.model.Intervention;
+import metier.model.Livraison;
+import util.DebugLogger;
 
 /**
  *
  * @author sosos
  */
-public class InterventionCoursSerialiser extends Serialisation{
+public class InterventionCoursSerialiser extends Serialisation {
+
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession(true);
             response.setContentType("text/html;charset=UTF-8");
             JsonObject jsonContainer = new JsonObject();
             if (request.getAttribute("intervention") != null) {
-                jsonContainer.addProperty("intervention", true); //A CHANGER !!! DOIT RENVOYER L'INTERVENTION ET NON PAS UN BOOLEAN !!!
+
+                Intervention i = (Intervention) request.getAttribute("intervention");
+
+                if (session.getAttribute("utilisateur") instanceof Client) {
+                    jsonContainer.addProperty("intervention", true);
+                    jsonContainer.addProperty("statut", i.getStatut().toString());
+                    jsonContainer.addProperty("dateDebut", i.getDate_emission().toString());
+                    jsonContainer.addProperty("description", i.getDescription());
+
+                    if (i instanceof Animal) {
+                        jsonContainer.addProperty("type", "Animal");
+                    } else if (i instanceof Livraison) {
+                        jsonContainer.addProperty("type", "Livraison");
+                    } else if (i instanceof Incident) {
+                        jsonContainer.addProperty("type", "Incident");
+                    }
+                } else if (session.getAttribute("utilisateur") instanceof Employe) {
+                    jsonContainer.addProperty("intervention", true);
+                    jsonContainer.addProperty("nom", i.getClient().getNom());
+                    jsonContainer.addProperty("prenom", i.getClient().getPrenom());
+                    jsonContainer.addProperty("adresse", i.getClient().getAdressePostale());
+                    jsonContainer.addProperty("description", i.getDescription());
+
+                    if (i instanceof Animal) {
+                        jsonContainer.addProperty("type", "Animal");
+                    } else if (i instanceof Livraison) {
+                        jsonContainer.addProperty("type", "Livraison");
+                    } else if (i instanceof Incident) {
+                        jsonContainer.addProperty("type", "Incident");
+                    }
+                }
             } else {
                 jsonContainer.addProperty("intervention", false);
             }
@@ -32,5 +72,4 @@ public class InterventionCoursSerialiser extends Serialisation{
             gson.toJson(jsonContainer, out);
         }
     }
-    
 }

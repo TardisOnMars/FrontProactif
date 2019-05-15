@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Intervention en cours</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <h1>Intervention</h1>
+        <span>Type :</span>
+        <div id ="type"></div>
+        <span>Statut :</span>
+        <div id ="statut"></div>
+        <span>Date Emission :</span>
+        <div id ="date"></div>
+        <span>Description :</span>
+        <div id ="description"></div>
+
+        <script>
+
+            function enCours() {
+
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'interventionEnCours'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.intervention === true) {
+                        $('#type').html(data.type);
+                        $('#statut').html(data.statut);
+                        $('#date').html(data.dateDebut);
+                        $('#description').html(data.description);
+                    } else {
+                        console.log(data);
+                        $('#statut').html('Aucune intervention en cours !');
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                enCours();
+            });
+
+        </script>
+    </body>
+</html>

@@ -1,21 +1,63 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Historique</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </head>
     <body>
-        <span>Historique</span>
-        <table>
-            <tr>
-        
-            </tr>
-        
+        <h1>Toutes vos interventions !</h1>
+        <table id="tableHisto">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <script>
+
+            function enCours() {
+
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'historiqueIntervention'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    console.log(data.interventions);
+                    if (data.intervention === true) {
+                        $.each(data.interventions, function (idx, obj) {
+                            addRow(obj.dateDebut, obj.type, obj.statut);
+                        });
+                    } else {
+                        console.log(data.connexion);
+                        $('#statut').html('Aucune intervention en cours !');
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                enCours();
+            });
+
+            function addRow(date, type, statut) {
+                var table = document.getElementById("tableHisto");
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                cell1.innerHTML = date;
+                cell2.innerHTML = type;
+                cell3.innerHTML = statut;
+            }
+
+        </script>
     </body>
 </html>

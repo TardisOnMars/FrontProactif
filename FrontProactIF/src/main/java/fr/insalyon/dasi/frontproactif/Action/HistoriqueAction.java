@@ -5,35 +5,29 @@
  */
 package fr.insalyon.dasi.frontproactif.Action;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import metier.model.Client;
-import metier.model.Employe;
 import metier.model.Intervention;
-import metier.model.Personne;
 import metier.service.Service;
 
 /**
  *
  * @author sosos
  */
-public class InterventionCoursAction extends Action{
+public class HistoriqueAction extends Action {
+
     @Override
     public boolean execute(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
-        Personne p = (Personne)session.getAttribute("utilisateur");
-        Intervention i = null;
-        if(p instanceof Client){
-            i = Service.ObtenirInterventionEnCours((Client)p);
-        }else if(p instanceof Employe)
-        {
-            i = Service.ObtenirInterventionEnCours((Employe)p);
-        }
-        
-        if (p == null) {
+        Client c = (Client) session.getAttribute("utilisateur");
+        List<Intervention> li = Service.ObtenirHistoriqueIntervention(c);
+
+        if (c == null) {
             request.setAttribute("intervention", null);
         } else {
-            request.setAttribute("intervention", i);
+            request.setAttribute("intervention", li);
         }
         return true;
     }

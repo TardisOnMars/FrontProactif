@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Intervention en cours</title>
+        <meta charset="UTF-8">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <h1>Cloturer Intervention</h1>
+        <span>Statut : </span>
+        <select id ="champ-statut" name="statut">
+            <option>Succès
+            <option>Echec
+        </select><br>
+        <span>Commentaire :</span> 
+        <textarea id="champ-commentaire" name ="commentaire"></textarea><br>
+        <button id="bouton-cloture">Cloturer la demande</button>
+
+        <script>
+            function cloture() {
+                var champStatut = $('#champ-statut').val();
+                var champCommentaire = $('#champ-commentaire').val();
+
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'cloturerIntervention',
+                        statut: champStatut,
+                        commentaire: champCommentaire
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.cloture === true) {
+                        window.location = "test.html";
+                    } else {
+                        console.log(data.cloture);
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#bouton-cloture').on('click', function () {
+                    console.log('Clic sur le bouton "Cloturer"');
+                    cloture();
+                });
+            });
+        </script>
+    </body>
+</html>

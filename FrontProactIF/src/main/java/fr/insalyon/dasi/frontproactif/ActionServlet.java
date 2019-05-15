@@ -7,13 +7,18 @@ package fr.insalyon.dasi.frontproactif;
 
 import dao.JpaUtil;
 import fr.insalyon.dasi.frontproactif.Action.Action;
+import fr.insalyon.dasi.frontproactif.Action.CloturerAction;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
 import fr.insalyon.dasi.frontproactif.Action.CreerInterventionAction;
+import fr.insalyon.dasi.frontproactif.Action.HistoriqueAction;
 import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Action.InterventionCoursAction;
+import fr.insalyon.dasi.frontproactif.Serialisation.CloturerSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.HistoriqueSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
+import fr.insalyon.dasi.frontproactif.Serialisation.InterventionCoursSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -29,7 +34,6 @@ import util.DebugLogger;
  *
  * @author svillenave
  */
-
 @WebServlet(name = "ActionServlet", urlPatterns = {"/ActionServlet"})
 public class ActionServlet extends HttpServlet {
 
@@ -60,10 +64,10 @@ public class ActionServlet extends HttpServlet {
             ConnexionSerialiser cs = new ConnexionSerialiser();
             cs.serialiser(request, response);
             session.setAttribute("utilisateur", request.getAttribute("connexion"));
-            Personne user = (Personne)session.getAttribute("utilisateur");
-            
+            Personne user = (Personne) session.getAttribute("utilisateur");
+
         } else {
-            Personne user = (Personne)session.getAttribute("utilisateur");
+            Personne user = (Personne) session.getAttribute("utilisateur");
 
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
@@ -72,7 +76,11 @@ public class ActionServlet extends HttpServlet {
                 Action a = null;
                 Serialisation s = null;
                 switch (todo) {
-                    case "afficherHistorique":
+                    case "historiqueIntervention":
+                        a = new HistoriqueAction();
+                        a.execute(request);
+                        s = new HistoriqueSerialiser();
+                        s.serialiser(request, response);
                         break;
                     case "creerIntervention":
                         a = new CreerInterventionAction();
@@ -83,7 +91,13 @@ public class ActionServlet extends HttpServlet {
                     case "interventionEnCours":
                         a = new InterventionCoursAction();
                         a.execute(request);
-                        s = new CreerInterventionSerialiser();
+                        s = new InterventionCoursSerialiser();
+                        s.serialiser(request, response);
+                        break;
+                    case "cloturerIntervention":
+                        a = new CloturerAction();
+                        a.execute(request);
+                        s = new CloturerSerialiser();
                         s.serialiser(request, response);
                         break;
                 }
@@ -91,7 +105,7 @@ public class ActionServlet extends HttpServlet {
                 if (todo == null) {
                     response.sendError(400, "Bad Request (Wrong TODO parameter");
                 } else {
-                    //boolean actionStatus = .execute(request);
+
                 }
             }
         }
