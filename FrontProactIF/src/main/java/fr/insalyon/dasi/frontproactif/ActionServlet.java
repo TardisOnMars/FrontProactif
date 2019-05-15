@@ -10,6 +10,7 @@ import fr.insalyon.dasi.frontproactif.Action.Action;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
 import fr.insalyon.dasi.frontproactif.Action.CreerInterventionAction;
 import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
+import fr.insalyon.dasi.frontproactif.Action.InterventionCoursAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
@@ -74,17 +75,13 @@ public class ActionServlet extends HttpServlet {
                     case "afficherHistorique":
                         break;
                     case "creerIntervention":
-                        DebugLogger.log("Creer Intervention!!!");
                         a = new CreerInterventionAction();
                         a.execute(request);
-                        DebugLogger.log("Creer Intervention!!! Execute");
                         s = new CreerInterventionSerialiser();
                         s.serialiser(request, response);
-                        DebugLogger.log("Creer Intervention!!! Serialiser");
                         break;
                     case "interventionEnCours":
-                        a = new CreerInterventionAction();
-                        request.setAttribute("client", user);
+                        a = new InterventionCoursAction();
                         a.execute(request);
                         s = new CreerInterventionSerialiser();
                         s.serialiser(request, response);
