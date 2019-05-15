@@ -7,6 +7,7 @@ package fr.insalyon.dasi.frontproactif.Action;
 
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import metier.model.Animal;
 import metier.model.Client;
 import metier.model.Incident;
@@ -22,13 +23,14 @@ import util.DebugLogger;
 public class CreerInterventionAction extends Action{
     @Override
     public boolean execute(HttpServletRequest request){
+        HttpSession session = request.getSession(true);
         String type = request.getParameter("type");
         String nomAnimal = request.getParameter("nomAnimal");
         String objet = request.getParameter("objet");
         String entreprise = request.getParameter("entreprise");
         String description = request.getParameter("description");
         
-        Client c = (Client)request.getAttribute("utilisateur");
+        Client c = (Client)session.getAttribute("utilisateur");
         
         request.setAttribute("intervention", true);
         DebugLogger.log(c.getNom()+" Intervention");

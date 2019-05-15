@@ -58,11 +58,11 @@ public class ActionServlet extends HttpServlet {
             ca.execute(request);
             ConnexionSerialiser cs = new ConnexionSerialiser();
             cs.serialiser(request, response);
-            DebugLogger.log(((Personne) request.getAttribute("connexion")).getNom());
             session.setAttribute("utilisateur", request.getAttribute("connexion"));
+            Personne user = (Personne)session.getAttribute("utilisateur");
+            
         } else {
             Personne user = (Personne)session.getAttribute("utilisateur");
-            DebugLogger.log(user.getNom());
 
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
@@ -74,10 +74,13 @@ public class ActionServlet extends HttpServlet {
                     case "afficherHistorique":
                         break;
                     case "creerIntervention":
+                        DebugLogger.log("Creer Intervention!!!");
                         a = new CreerInterventionAction();
                         a.execute(request);
+                        DebugLogger.log("Creer Intervention!!! Execute");
                         s = new CreerInterventionSerialiser();
                         s.serialiser(request, response);
+                        DebugLogger.log("Creer Intervention!!! Serialiser");
                         break;
                     case "interventionEnCours":
                         a = new CreerInterventionAction();
