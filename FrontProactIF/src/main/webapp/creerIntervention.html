@@ -10,30 +10,35 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel = "stylesheet" href = "creerIntervention.css"/>
     </head>
     <body>
-        <span>Catégorie</span>
-        <select id="champ-categorie" name="categorie">
-            <option>Animal</option>
-            <option>Incident</option>
-            <option>Livraison</option>
-        </select>
-        <br>
-        <span id="nom-animal">Nom de l'animal</span>
-        <input type="text" id="champ-nom" name="animal" placeholder="Médor"/>
-        <br>
-        <span id="nom-objet">Objet</span>
-        <input type="text" id="champ-objet" name="objet" placeholder="Colis"/>
-        <br>
-        <span id="nom-entreprise">Entreprise</span>
-        <input type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
-        <br>
-        <span id="description">Description</span>
-        <input type="text" id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"/>
-        <br>
-        <button id="bouton-creer">Créer l'intervention</button>
+        <div class="shape">
+            <span id="demande"> Demande d'intervention ! Quel est votre problème ?</span> 
+            <br><br><br><br>
+            <span class="texts" id="animal">Catégorie</span>
+            <select class="champ" id="champ-categorie" name="categorie">
+                <option>Animal</option>
+                <option>Incident</option>
+                <option>Livraison</option>
+            </select>
+            <br><br><br><br><br>
+            <span class="texts" id="nom-animal">Nom de l'animal</span>
+            <input class="champs" type="text" id="champ-nom" name="animal" placeholder="Médor"/>
+            <br><br><br><br><br>
+            <span class="texts" id="nom-objet">Objet</span>
+            <input class="champs" type="text" id="champ-objet" name="objet" placeholder="Colis"/>
+            <br><br><br><br><br>
+            <span class="texts" id="nom-entreprise">Entreprise</span>
+            <input class="champs" type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
+            <br><br><br><br><br>
+            <span class="texts" id="description">Description</span>
+            <textarea id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"></textarea>
+            <br><br><br><br><br>
+            <button id="bouton-creer">Créer l'intervention</button>
+        </div>
         <script>
-             function creerIntervention() {
+            function creerIntervention() {
                 var type = $('#champ-categorie').val();
                 var nomanim = $('#champ-nom').val();
                 var nomobj = $('#champ-objet').val();
@@ -46,10 +51,10 @@ and open the template in the editor.
                     data: {
                         todo: 'creerIntervention',
                         type: type,
-                        nomAnimal:nomanim,
-                        objet:nomobj,
-                        entreprise:nomentre,
-                        description:descrip
+                        nomAnimal: nomanim,
+                        objet: nomobj,
+                        entreprise: nomentre,
+                        description: descrip
                     },
                     dataType: 'json'
                 }).done(function (data) {

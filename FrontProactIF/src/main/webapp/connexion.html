@@ -4,15 +4,22 @@
         <title>ProactIF Login</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel = "stylesheet" href = "connexion.css"/>
     </head>
     <body>
-        <h1>Formulaire de login</h1>
-        <span>Identifiant :</span> 
-        <input type="text" id="champ-login" name="login" placeholder="Votre Identifiant" /><br>
-        <span>Mot de passe : </span>
-        <input type="password" id="champ-password" name="password" placeholder="Votre Mot de Passe" /><br>
-        <button id="bouton-connexion">Se connecter</button>   
-        <div id="message"></div>
+        <h1>Proactif : Connectez-vous</h1>
+        <div id ="form_connexion" class = "shape1" >
+            <span id = "bonjour">Entrez votre adresse mail et votre mot de passe</span>
+            <br><br><br><br><br><br><br>
+            <span class="texts" id = "identifiant">Identifiant</span> 
+            <input class="champs" type="text" id="champ-login" name="login" placeholder="Votre Identifiant" />
+            <br><br><br><br><br><br><br>
+            <span class="texts" id = "password">Mot de passe</span>
+            <input class="champs" type="password" id="champ-password" name="password" placeholder="Votre Mot de Passe" />
+            <br><br><br><br><br><br><br>
+            <button id="bouton-connexion">Se connecter</button>   
+            
+        </div>
 
         <script>
 
@@ -36,7 +43,7 @@
                     if (data.connexion === true) {
                         console.log(data.connexion);
                         $('#message').html('Connexion réussie !');
-                        window.location = "creerIntervention.html";
+                        window.location = "cloturerIntervention.html";
                     } else {
                         console.log(data.connexion);
                         $('#message').html('Echec de la connexion');
@@ -45,14 +52,8 @@
             }
 
             $(document).ready(function () {
-                // ajout d'un "handler" sur le clic du bouton de connexion
                 $('#bouton-connexion').on('click', function () {
-                    // affichage pour debugage dans la console javascript du navigateur
-                    console.log('Clic sur le bouton "Se Connecter"');
-                    // appel de la fonction connexion
                     connexion();
-                    
-                    
                 });
             });
 

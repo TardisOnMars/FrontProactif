@@ -1,0 +1,77 @@
+body {
+    background: url("ressources/Dog-grooming.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-backgroud-size: cover;
+    background-size: cover;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    padding: 70px;
+    font-size : 60px;
+}
+
+div {
+    float:left;margin-right: 30px;
+}
+
+#form_connexion{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    vertical-align: middle;
+    background-color: goldenrod;
+    border-radius: 30px;
+    border: 15px solid brown;
+    padding: 50px;
+    opacity : 0.8;
+}
+
+#bonjour {
+    font-size: 35px;
+    position:absolute;
+    left:100px;
+}
+
+#faire_centre {
+    border: 30px;
+    padding:200px;
+}
+
+#identifiant {
+    font-size :25px;
+}
+
+#password{
+    font-size :25px;
+}
+
+#bouton-connexion{
+    height: 30px;
+    width: 180px;
+    display: inline-block;
+    position: absolute;
+    left: 325px;
+}
+
+.shape1 {
+    width:700px;height:500px;background-color:aqua;border-radius: 30px;
+}
+
+.texts {
+    position:absolute ; 
+    left:250px;
+}
+
+.champs {
+    position:absolute; 
+    left:410px;
+}
+
+
+

@@ -97,11 +97,11 @@ public class ActionServlet extends HttpServlet {
                     case "cloturerIntervention":
                         a = new CloturerAction();
                         a.execute(request);
+                        DebugLogger.log((String)request.getAttribute("commentaire"));
                         s = new CloturerSerialiser();
                         s.serialiser(request, response);
                         break;
                 }
-
                 if (todo == null) {
                     response.sendError(400, "Bad Request (Wrong TODO parameter");
                 } else {

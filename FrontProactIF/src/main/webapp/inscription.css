@@ -1,0 +1,50 @@
+body{
+    background: url("ressources/national-dog-day-new-car-smell-ftr.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-backgroud-size: cover;
+    background-size: cover;
+
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size : 60px;
+}
+
+.texts {
+    margin: 150px;
+}
+
+.champs {
+    margin-right: 150px;
+    display: inline-block;
+    float: right;
+}
+
+.shape
+{
+    margin: 0 auto;
+    width: 700px;
+    vertical-align: middle;
+    background-color: lemonchiffon;
+    border-radius: 30px;
+    border: 15px solid grey;
+    padding: 40px;
+    opacity : 0.8;
+}
+
+#fill
+{
+    margin: 0 auto;
+    font-size: 25px;
+}
+
+#bouton-inscription{
+    display: inline-block;
+    float: right;
+    height:30px;
+    width:180px;
+}

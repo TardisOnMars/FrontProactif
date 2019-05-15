@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ProactIF Login</title>
+        <title>ProactIF</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel = "stylesheet" href = "index.css"/>
     </head>
+
     <body>
-        <a href ="connexion.html">Connexion</a>
-        <a href ="inscription.html">Inscription</a>
+        <div class="shape" id="links">
+            <span id = "bienvenue">Bienvenue sur ProactIF </span>
+            <br><br><br><br><br>
+            <span class = "already">Vous avez déjà un compte?</span><br><br>
+            <span class = "clic">Connectez-vous</span>
+            <i class="right"></i>
+            <i class="right"></i>
+            <i class="right"></i>
+            <input class = "button" type="button" value="Je me connecte !" onclick="location.href = 'connexion.html'"/>
+            <br><br><br>
+            <hr>
+            <br><br><br>
+            <span class = "already">Pas encore inscrit ?</span><br><br>
+            <span class = "clic">Rejoignez-nous</span>
+            <i class="right"></i>
+            <i class="right"></i>
+            <i class="right"></i>
+            <input class = "button" type="button" value="Je m'inscris !" onclick="location.href = 'inscription.html'"/>
+        </div>
     </body>
 </html>

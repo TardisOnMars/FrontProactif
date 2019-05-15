@@ -20,7 +20,7 @@
             function cloture() {
                 var champStatut = $('#champ-statut').val();
                 var champCommentaire = $('#champ-commentaire').val();
-
+                console.log(champStatut + " " + champCommentaire);
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',

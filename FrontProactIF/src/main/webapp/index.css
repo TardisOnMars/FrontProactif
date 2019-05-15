@@ -1,0 +1,66 @@
+body {
+
+    background: url("ressources/GettyImages-182859572.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-backgroud-size: cover;
+    background-size: cover;
+
+}
+
+div {
+    float:left;margin-right: 30px;
+}
+
+i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+#links
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    vertical-align: middle;
+    background-color: gold;
+    border-radius: 30px;
+    border: 15px solid black;
+    padding: 50px;
+    text-align: center;
+    opacity : 0.7;
+}
+
+#bienvenue
+{
+    font-size: 50px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.already
+{
+    font-size: 30px;
+}
+
+.clic{
+    font-size: 20px;
+}
+
+.shape {
+    width:700px;height:500px;background-color:aqua;border-radius: 30px;
+}
+
+.button {
+    height:40px;
+    width:120px;
+    display:inline-block;
+}

@@ -9,44 +9,49 @@ and open the template in the editor.
         <title>ProactIF Inscription</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel = "stylesheet" href = "inscription.css"/>
     </head>
     <body>
         <h1>Formulaire d'inscription</h1>
         <form>
-            <span>Nom : </span> 
-            <input type="text" id="champ-nom" name="nom" placeholder="Nom" />
-            <br>
-            <span>Prénom : </span>
-            <input type="text" id="champ-prenom" name="prenom" placeholder="Prénom" />
-            <br>
-            <span>Civilité : </span>
-            <select id ="champ-civilite" name="civilite">
-                <option>Monsieur
-                <option>Madame
-            </select>
-            <br>
-            <span>Adresse : </span>
-            <input type="text" id="champ-adresse" name="adresse" placeholder="Adresse" />
-            <br>
-            <span>Ville : </span>
-            <input type="text" id="champ-ville" name="ville" placeholder="Ville" />
-            <br>
-            <span>Telephone : </span>
-            <input type="text" id="champ-telephone" name="telephone" placeholder="Téléphone" />
-            <br>
-            <span>Date de Naissance : </span>
-            <input type="date" id="champ-naissance" name="naissance">
-            <br>
-            <br>
-            <span>Email : </span>
-            <input type="email" id = "champ-email" name="email" placeholder="E-mail">
-            <br>
-            <span>Mot de Passe : </span>
-            <input type="password" id = "champ-mdp" name="mdp" placeholder="Mot de Passe">
+            <div class =shape>
+                <span id ="fill">Remplissez tous les champs et inscrivez-vous !</span>
+                <br><br><br>
+                <span class ="texts">Nom</span> 
+                <input class ="champs" type="text" id="champ-nom" name="nom" placeholder="Nom" />
+                <br><br><br>
+                <span class ="texts">Prénom</span>
+                <input class ="champs" type="text" id="champ-prenom" name="prenom" placeholder="Prénom" />
+                <br><br><br>
+                <span class ="texts">Civilité</span>
+                <select class ="champs" id ="champ-civilite" name="civilite">
+                    <option>Monsieur
+                    <option>Madame
+                </select>
+                <br><br><br>
+                <span class ="texts">Adresse</span>
+                <input class ="champs" type="text" id="champ-adresse" name="adresse" placeholder="Adresse" />
+                <br><br><br>
+                <span class ="texts">Ville</span>
+                <input class ="champs" type="text" id="champ-ville" name="ville" placeholder="Ville" />
+                <br><br><br>
+                <span class ="texts">Telephone</span>
+                <input class ="champs" type="text" id="champ-telephone" name="telephone" placeholder="Téléphone" />
+                <br><br><br>
+                <span class ="texts">Date de Naissance</span>
+                <input class ="champs" type="date" id="champ-naissance" name="naissance">
+                <br><br><br>
+                <hr>
+                <br><br><br>
+                <span class ="texts">Email</span>
+                <input class ="champs" type="email" id = "champ-email" name="email" placeholder="E-mail">
+                <br><br><br>
+                <span class ="texts">Mot de Passe</span>
+                <input class ="champs" type="password" id = "champ-mdp" name="mdp" placeholder="Mot de Passe">
+                <br><br><br>
+                <button id="bouton-inscription">S'inscrire</button>
+            </div>
         </form>
-        <button id="bouton-inscription">S'inscrire</button>
-        <div id="message"></div>
-        
         <script>
 
             function inscription() {
@@ -100,6 +105,6 @@ and open the template in the editor.
             });
 
         </script>
-        
+
     </body>
 </html>
