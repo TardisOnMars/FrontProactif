@@ -13,11 +13,18 @@ and open the template in the editor.
         <link rel = "stylesheet" href = "creerIntervention.css"/>
     </head>
     <body>
+        <ul>
+            <li><a href="historique.html">Historique</a></li>
+            <li><a class="active" href="creerIntervention.html">Demander une intervention</a></li>
+            <li><a href="interventionCoursClient.html">Intervention en cours</a></li>
+            <li style="float:right"><a href="#about">Deconnexion</a></li>
+        </ul>
+        <br><br><br><br>
         <div class="shape">
-            <span id="demande"> Demande d'intervention ! Quel est votre problème ?</span> 
+            <span id="demande">Quel est votre problème ?</span> 
             <br><br><br><br>
             <span class="texts" id="animal">Catégorie</span>
-            <select class="champ" id="champ-categorie" name="categorie">
+            <select class="champs" id="champ-categorie" name="categorie">
                 <option>Animal</option>
                 <option>Incident</option>
                 <option>Livraison</option>
@@ -33,11 +40,55 @@ and open the template in the editor.
             <input class="champs" type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
             <br><br><br><br><br>
             <span class="texts" id="description">Description</span>
-            <textarea id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"></textarea>
+            <textarea class="champs" id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"></textarea>
             <br><br><br><br><br>
             <button id="bouton-creer">Créer l'intervention</button>
         </div>
         <script>
+            var choix = document.getElementById("champ-categorie");
+            var nomAnimal = document.getElementById("nom-animal");
+            var nomObjet = document.getElementById("nom-objet");
+            var nomEntreprise = document.getElementById("nom-entreprise");
+            var choixAnimal = document.getElementById("champ-nom");
+            var choixObjet = document.getElementById("champ-objet");
+            var choixEntreprise = document.getElementById("champ-entreprise");
+            
+            hideElements();
+            
+            function hideElements(){
+                if ($('#champ-categorie').val() === "Animal")
+                {
+                    nomAnimal.style.display = 'initial';
+                    nomObjet.style.display = 'none';
+                    nomEntreprise.style.display = 'none';
+                    choixAnimal.style.display = 'initial';
+                    choixObjet.style.display = 'none';
+                    choixEntreprise.style.display = 'none';
+                } else if ($('#champ-categorie').val() === "Incident") {
+                    nomAnimal.style.display = 'none';
+                    nomObjet.style.display = 'none';
+                    nomEntreprise.style.display = 'none';
+                    choixAnimal.style.display = 'none';
+                    choixObjet.style.display = 'none';
+                    choixEntreprise.style.display = 'none';
+                } else if ($('#champ-categorie').val() === "Livraison") {
+                    nomAnimal.style.display = 'none';
+                    nomObjet.style.display = 'initial';
+                    nomEntreprise.style.display = 'initial';
+                    choixAnimal.style.display = 'none';
+                    choixObjet.style.display = 'initial';
+                    choixEntreprise.style.display = 'initial';
+                }
+            }
+            
+            choix.addEventListener("mouseleave", function () {
+                hideElements();
+            });
+            
+            choix.addEventListener("click", function () {
+                hideElements();
+            });
+
             function creerIntervention() {
                 var type = $('#champ-categorie').val();
                 var nomanim = $('#champ-nom').val();
@@ -59,7 +110,7 @@ and open the template in the editor.
                     dataType: 'json'
                 }).done(function (data) {
                     if (data.intervention === true) {
-                        window.location = "test.html";
+                        window.location = "historique.html";
                     } else {
                     }
                 });

@@ -1,3 +1,5 @@
+@import "navbar.css";
+
 body 
 {
     background: url("ressources/AdobeStock_68495552Mini.jpeg") no-repeat center center fixed;
@@ -27,22 +29,21 @@ body
     margin: 0 auto;
     width: 800px;
     vertical-align: middle;
-    background-color: aqua;
+    background: rgba(0, 255, 255, 0.8);
     border-radius: 30px;
     border: 15px solid grey;
     padding: 40px;
-    opacity : 0.9;
 }
 
 .texts{
     display: inline-block;
-    float: right;
+    float: left;
     font-size: 20px;
 }
 
 .champs {
     display: inline-block;
-    float: left;
+    float: right;
 }
 
 

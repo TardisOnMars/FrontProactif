@@ -4,8 +4,15 @@
         <title>Historique</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel = "stylesheet" href = "navbar.css"/>
     </head>
     <body>
+        <ul>
+            <li><a class="active" href="historique.html">Historique</a></li>
+            <li><a href="creerIntervention.html">Demander une intervention</a></li>
+            <li><a href="interventionCoursClient.html">Intervention en cours</a></li>
+            <li style="float:right"><a href="#about">Deconnexion</a></li>
+        </ul>
         <h1>Toutes vos interventions !</h1>
         <table id="tableHisto">
             <thead>
@@ -18,7 +25,6 @@
             <tbody>
             </tbody>
         </table>
-
         <script>
 
             function enCours() {
