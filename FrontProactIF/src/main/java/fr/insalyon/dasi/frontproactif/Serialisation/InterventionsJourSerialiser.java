@@ -45,6 +45,11 @@ public class InterventionsJourSerialiser extends Serialisation{
                     JsonObject jsonIntervention = new JsonObject();
                     jsonIntervention.addProperty("statut", i.getStatut().toString());
                     jsonIntervention.addProperty("dateDebut", i.getDate_emission().toString());
+                    if(i.getDate_fin()!= null){
+                        jsonIntervention.addProperty("dateFin", i.getDate_fin().toString());
+                    }else{
+                        jsonIntervention.addProperty("dateFin", "NotDefined");
+                    }
                     jsonIntervention.addProperty("description", i.getDescription());
                     jsonIntervention.addProperty("latitude", coord.lat);
                     jsonIntervention.addProperty("longitude", coord.lng);
@@ -56,6 +61,15 @@ public class InterventionsJourSerialiser extends Serialisation{
                     } else if (i instanceof Incident) {
                         jsonIntervention.addProperty("type", "Incident");
                     }
+                    
+                    JsonObject jsonClient = new JsonObject();
+                    jsonClient.addProperty("nom", i.getClient().getNom());
+                    jsonClient.addProperty("prenom", i.getClient().getPrenom());
+                    jsonClient.addProperty("adresse", i.getClient().getAdressePostale());
+                    jsonClient.addProperty("telephone", i.getClient().getNumTel());
+                    jsonClient.addProperty("email", i.getClient().getEmail());
+                    
+                    jsonIntervention.add("client", jsonClient);
                     jsonArrayIntervention.add(jsonIntervention);
                 }
                 jsonContainer.add("interventions", jsonArrayIntervention);

@@ -25,9 +25,44 @@
             <li><a href="tableauBord.html">Tableau de Bord</a></li>
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
-        <h1>Démonstrat'IF &ndash; Carte Google Maps</h1>
+        <h1>Interventions du jour</h1>
         <div id="map"></div>
-
+        <h2>Détails de l'intervention</h2>
+        <div id="client">
+            <h3>Informations Client</h3>
+            <span>Nom</span>
+            <span id="nom"></span>
+            <br>
+            <span>Prénom</span>
+            <span id="prenom"></span>
+            <br>
+            <span>Adresse</span>
+            <span id="adresse"></span>
+            <br>
+            <span>Téléphone</span>
+            <span id="telephone"></span>
+            <br>
+            <span>Email</span>
+            <span id="email"></span>
+        </div>
+        <div id="intervention">
+            <h3>Informations Intervention</h3>
+            <br>
+            <span>Statut</span>
+            <span id="statut"></span>
+            <br>
+            <span>Type</span>
+            <span id="type"></span>
+            <br>
+            <span>Date Emission</span>
+            <span id="dateDebut"></span>
+            <br>
+            <span>Date de Fin</span>
+            <span id="dateFin"></span>
+            <br>
+            <span>Description</span>
+            <span id="description"></span>
+        </div>
         <script type="text/javascript">
 
             var googleMapInstance = null;
@@ -38,11 +73,21 @@
                 });
             }
 
-            function attachInfoWindow(marker, infowindow, htmlDescription) {
+            function attachInfoWindow(marker, infowindow, htmlDescription, inter) {
                 marker.addListener('click', function () {
-
                     infowindow.setContent(htmlDescription);
                     infowindow.open(googleMapInstance, this);
+                    $("#nom").html(inter.client.nom);
+                    $("#prenom").html(inter.client.prenom);
+                    $("#adresse").html(inter.client.adresse);
+                    $("#telephone").html(inter.client.telephone);
+                    $("#email").html(inter.client.email);
+                    
+                    $("#statut").html(inter.statut);
+                    $("#type").html(inter.type);
+                    $("#dateDebut").html(inter.dateDebut);
+                    $("#dateFin").html(inter.dateFin);
+                    $("#description").html(inter.description);                    
                 });
             }
 
@@ -88,7 +133,7 @@
                                 icon: iconImage
                             });
 
-                            attachInfoWindow(marker, infowindow, obj.description);
+                            attachInfoWindow(marker, infowindow, obj.description, obj);
                         });
                     } else {
                         console.log(data.intervention);
