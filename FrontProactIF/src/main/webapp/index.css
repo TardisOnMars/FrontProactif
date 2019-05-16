@@ -28,12 +28,11 @@ i {
     right: 0;
     margin: auto;
     vertical-align: middle;
-    background-color: gold;
+    background: rgba(255, 215, 0, 0.7);
     border-radius: 30px;
     border: 15px solid black;
     padding: 50px;
     text-align: center;
-    opacity : 0.7;
 }
 
 #bienvenue
@@ -63,4 +62,14 @@ i {
     height:40px;
     width:120px;
     display:inline-block;
+}
+
+.texts {
+    position:absolute ; 
+    left:250px;
+}
+
+.champs {
+    position:absolute; 
+    left:410px;
 }

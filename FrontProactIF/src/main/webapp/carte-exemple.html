@@ -3,7 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Demonstrat'IF - Carte Google Maps</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <title>Tableau de bord</title>
 
         <style type="text/css">
             html, body { height: 100%; margin: 0; padding: 0; }
@@ -40,21 +41,9 @@
                     center: {lat: 45.7601424, lng: 4.8961779},
                     zoom: 13
                 });
+            }
 
-                var infowindow = makeInfoWindow('');
-
-                var marker = new google.maps.Marker({
-                    map: googleMapInstance,
-                    position: {lat: 45.782122, lng: 4.872735},
-                    title: "Département IF, INSA de Lyon",
-                    icon: {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)}
-                });
-
-                marker.addListener('click', function () {
-                    infowindow.setContent('<div>Information: ' + marker.title + '</div>');
-                    infowindow.open(googleMapInstance, marker);
-                });
-
+            function feedMap() {
                 // Simuler un appel AJAX (attente 5s)
                 $.ajax({
                     url: './ActionServlet',
@@ -66,46 +55,42 @@
                 }).done(function (data) {
                     if (data.intervention === true) {
                         $.each(data.interventions, function (idx, obj) {
-                            generateMarkers(idx, obj);
+                            var infowindow = makeInfoWindow('');
+
+                            var iconImage = null; // marker par défaut
+
+                            if (obj.type === "Animal") {
+                                iconImage = {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)};
+                            } else if (obj.type === "Incident") {
+                                iconImage = {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)};
+                            } else if (obj.type === "Livraison") {
+                                iconImage = {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)};
+                            }
+
+                            var latitude = obj.latitude;
+                            var longitude = obj.longitude;
+
+                            var marker = new google.maps.Marker({
+                                map: googleMapInstance,
+                                position: {lat: latitude, lng: longitude},
+                                title: 'Intervention #' + (idx + 1),
+                                icon: iconImage
+                            });
+
+                            attachInfoWindow(marker, infowindow, obj.description);
                         });
                     } else {
-                        console.log(data.connexion);
-                        $('#statut').html('Aucune intervention en cours !');
+                        console.log(data.intervention);
                     }
                 });
             }
 
-            function generateMarkers(index, obj) {
-
-                // Petite popup Google Maps
-                var infowindow = makeInfoWindow('');
-
-                var position = {lat: 45.782122, lng: 4.872735};
-
-                var iconImage = null; // marker par défaut
-                
-                if (obj.type === "Animal") {
-                    iconImage = {url: './ressources/Bird.png', scaledSize: new google.maps.Size(32, 32)};
-                } else if (obj.type === "Incident") {
-                    iconImage = {url: './ressources/Bird.png', scaledSize: new google.maps.Size(32, 32)};
-                } else if (obj.type === "Livraison") {
-                    iconImage = {url: './ressources/Bird.png', scaledSize: new google.maps.Size(32, 32)};
-                }
-
-                var marker = new google.maps.Marker({
-                    map: googleMapInstance,
-                    position: {lat: obj.latitude, lng: obj.longitude},
-                    title: 'Intervention #' + index,
-                    icon: iconImage
-                });
-
-                attachInfoWindow(marker, infowindow, description);
-            }
-
-            }
-
+            $(document).ready(function () {
+                initMap();
+                feedMap();
+            });
         </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAklw96N9rLd93ubr-F04CN7qi2ryKayAc&callback=initMap">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAklw96N9rLd93ubr-F04CN7qi2ryKayAc&callback=initMap">
         </script>
     </body>
 </html>

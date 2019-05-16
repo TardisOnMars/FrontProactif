@@ -10,16 +10,19 @@
     <body>
         <div class="shape" id="links">
             <span id = "bienvenue">Bienvenue sur ProactIF </span>
-            <br><br><br><br><br>
-            <span class = "already">Vous avez déjà un compte?</span><br><br>
-            <span class = "clic">Connectez-vous</span>
-            <i class="right"></i>
-            <i class="right"></i>
-            <i class="right"></i>
-            <input class = "button" type="button" value="Je me connecte !" onclick="location.href = 'connexion.html'"/>
+            <br><br>
+            <span class = "already">Vous avez déjà un compte?</span>
+            <br><br><br>
+            <span class="texts" id = "identifiant">Identifiant</span> 
+            <input class="champs" type="text" id="champ-login" name="login" placeholder="Votre Identifiant" />
+            <br><br><br>
+            <span class="texts" id = "password">Mot de passe</span>
+            <input class="champs" type="password" id="champ-password" name="password" placeholder="Votre Mot de Passe" />
+            <br><br><br>
+            <button class="button" id="bouton-connexion">Je me connecte</button>
             <br><br><br>
             <hr>
-            <br><br><br>
+            <br><br>
             <span class = "already">Pas encore inscrit ?</span><br><br>
             <span class = "clic">Rejoignez-nous</span>
             <i class="right"></i>
@@ -27,5 +30,43 @@
             <i class="right"></i>
             <input class = "button" type="button" value="Je m'inscris !" onclick="location.href = 'inscription.html'"/>
         </div>
+
+        <script>
+            function connexion() {
+                var champLogin = $('#champ-login').val();
+                var champPassword = $('#champ-password').val();
+
+                $('#message').html('Connexion en cours...');
+
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'connexion',
+                        connexion: false,
+                        login: champLogin,
+                        password: champPassword
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.connexion === true) {
+                        if (data.type === "client") {
+                            window.location = "historique.html";
+                        } else if (data.type === "employe") {
+                            window.location = "carte-exemple.html";
+                        }
+                    } else {
+                        console.log(data.connexion);
+                        alert("Echec de la connexion");
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                $('#bouton-connexion').on('click', function () {
+                    connexion();
+                });
+            });
+        </script>
     </body>
 </html>

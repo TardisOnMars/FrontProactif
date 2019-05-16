@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import metier.model.Client;
+import metier.model.Employe;
+import metier.model.Personne;
 
 /**
  *
@@ -26,6 +29,11 @@ public class ConnexionSerialiser extends Serialisation {
             JsonObject jsonContainer = new JsonObject();
             if (request.getAttribute("connexion") != null) {
                 jsonContainer.addProperty("connexion", true);
+                if ((Personne) request.getAttribute("connexion") instanceof Client) {
+                    jsonContainer.addProperty("type", "client");
+                } else if ((Personne) request.getAttribute("connexion") instanceof Employe) {
+                    jsonContainer.addProperty("type", "employe");
+                }
             } else {
                 jsonContainer.addProperty("connexion", false);
             }
