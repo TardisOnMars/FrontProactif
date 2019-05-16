@@ -10,6 +10,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="deconnexion.js"></script>
+        <script>
+            verificationClient();
+        </script>
         <link rel = "stylesheet" href = "creerIntervention.css"/>
     </head>
     <body>
@@ -17,7 +21,7 @@ and open the template in the editor.
             <li><a href="historique.html">Historique</a></li>
             <li><a class="active" href="creerIntervention.html">Demander une intervention</a></li>
             <li><a href="interventionCoursClient.html">Intervention en cours</a></li>
-            <li style="float:right"><a href="#about">Deconnexion</a></li>
+            <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
         <br><br><br><br>
         <div class="shape">

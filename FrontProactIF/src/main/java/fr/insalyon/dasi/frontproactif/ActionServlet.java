@@ -10,10 +10,12 @@ import fr.insalyon.dasi.frontproactif.Action.Action;
 import fr.insalyon.dasi.frontproactif.Action.CloturerAction;
 import fr.insalyon.dasi.frontproactif.Action.ConnexionAction;
 import fr.insalyon.dasi.frontproactif.Action.CreerInterventionAction;
+import fr.insalyon.dasi.frontproactif.Action.DeconnexionAction;
 import fr.insalyon.dasi.frontproactif.Action.HistoriqueAction;
 import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Action.InterventionCoursAction;
 import fr.insalyon.dasi.frontproactif.Action.InterventionsJourAction;
+import fr.insalyon.dasi.frontproactif.Action.VerificationAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.CloturerSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
@@ -22,6 +24,7 @@ import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InterventionCoursSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InterventionsJourSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
+import fr.insalyon.dasi.frontproactif.Serialisation.VerificationSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -106,6 +109,16 @@ public class ActionServlet extends HttpServlet {
                         a = new InterventionsJourAction();
                         a.execute(request);
                         s = new InterventionsJourSerialiser();
+                        s.serialiser(request, response);
+                        break;
+                    case "deconnexion":
+                        a = new DeconnexionAction();
+                        a.execute(request);
+                        break;
+                    case "verification":
+                        a = new VerificationAction();
+                        a.execute(request);
+                        s = new VerificationSerialisation();
                         s.serialiser(request, response);
                         break;
                 }

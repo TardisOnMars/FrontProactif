@@ -4,8 +4,19 @@
         <title>Intervention en cours</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="deconnexion.js"></script>
+        <script>
+            verificationEmploye();
+        </script>
+        <link rel = "stylesheet" href = "navbar.css"/>
     </head>
     <body>
+        <ul>
+            <li><a href="interventionCoursEmploye.html">Intervention en cours</a></li>
+            <li><a class="active" href="cloturerIntervention.html">Cloturer l'intervention</a></li>
+            <li><a href="tableauBord.html">Tableau de Bord</a></li>
+            <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
+        </ul>
         <h1>Cloturer Intervention</h1>
         <span>Statut : </span>
         <select id ="champ-statut" name="statut">

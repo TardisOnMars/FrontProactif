@@ -4,6 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="deconnexion.js"></script>
+        <script>
+            verificationEmploye();
+        </script>
+        <link rel = "stylesheet" href = "navbar.css"/>
         <title>Tableau de bord</title>
 
         <style type="text/css">
@@ -14,6 +19,12 @@
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
     </head>
     <body>
+        <ul>
+            <li><a href="interventionCoursEmploye.html">Intervention en cours</a></li>
+            <li><a class="active" href="cloturerIntervention.html">Cloturer l'intervention</a></li>
+            <li><a href="tableauBord.html">Tableau de Bord</a></li>
+            <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
+        </ul>
         <h1>Démonstrat'IF &ndash; Carte Google Maps</h1>
         <div id="map"></div>
 
@@ -60,11 +71,11 @@
                             var iconImage = null; // marker par défaut
 
                             if (obj.type === "Animal") {
-                                iconImage = {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)};
+                                iconImage = {url: './ressources/cat.png', scaledSize: new google.maps.Size(32, 32)};
                             } else if (obj.type === "Incident") {
                                 iconImage = {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)};
                             } else if (obj.type === "Livraison") {
-                                iconImage = {url: './ressources/bird.png', scaledSize: new google.maps.Size(32, 32)};
+                                iconImage = {url: './ressources/snake.png', scaledSize: new google.maps.Size(32, 32)};
                             }
 
                             var latitude = obj.latitude;
