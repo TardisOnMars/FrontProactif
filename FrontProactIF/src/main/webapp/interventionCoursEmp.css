@@ -19,12 +19,13 @@ h1 {
 .shape
 {
     margin: 0 auto;
-    width: 90%;
+    width: 50%;
     vertical-align: middle;
     background: rgba(0, 255, 255, 0.8);
     border-radius: 30px;
     border: 15px solid grey;
     padding: 40px;
+    float: right;
 }
 
 .texts{
@@ -35,4 +36,15 @@ h1 {
 .champs {
     display: inline-block;
     float: right;
+}
+
+#fullName{
+    margin: 0 auto;
+    width: 25%;
+    vertical-align: middle;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    border: 5px solid grey;
+    padding: 20px;
+    float: left;
 }

@@ -18,21 +18,29 @@
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
         <h1>Intervention</h1>
-        <div class="shape">
-            <span class="texts">Nom Client :</span>
-            <div class="champs" id ="nom">Aucune Intervention en Cours</div>
-            <br>
-            <span class="texts">Prénom Client :</span>
-            <div class="champs" id ="prenom">Aucune Intervention en Cours</div>
-            <br>
-            <span class="texts">Adresse :</span>
-            <div class="champs" id ="adresse">Aucune Intervention en Cours</div>
-            <br>
-            <span class="texts">Date Emission :</span>
-            <div class="champs" id ="type">Aucune Intervention en Cours</div>
-            <br>
-            <span class="texts">Description :</span>
-            <div class="champs" id ="description">Aucune Intervention en Cours</div>
+        <div>
+            <div id="fullName">
+                <h2>Bienvenue !</h2>
+                <h2 id="nomEmp" class="texts">Nom Emp</h2>
+                <br>
+                <h2 id="prenomEmp" class="texts">Prénom Emp</h2>
+            </div>
+            <div class="shape">
+                <span class="texts">Nom Client :</span>
+                <div class="champs" id ="nom">Aucune Intervention en Cours</div>
+                <br>
+                <span class="texts">Prénom Client :</span>
+                <div class="champs" id ="prenom">Aucune Intervention en Cours</div>
+                <br>
+                <span class="texts">Adresse :</span>
+                <div class="champs" id ="adresse">Aucune Intervention en Cours</div>
+                <br>
+                <span class="texts">Date Emission :</span>
+                <div class="champs" id ="type">Aucune Intervention en Cours</div>
+                <br>
+                <span class="texts">Description :</span>
+                <div class="champs" id ="description">Aucune Intervention en Cours</div>
+            </div>
         </div>
         <script>
 
@@ -47,6 +55,8 @@
                     dataType: 'json'
                 }).done(function (data) {
                     if (data.intervention === true) {
+                        $('#nomEmp').html(data.nomEmp);
+                        $('#prenomEmp').html(data.prenomEmp);
                         $('#nom').html(data.nom);
                         $('#prenom').html(data.prenom);
                         $('#adresse').html(data.adresse);
@@ -54,8 +64,10 @@
                         $('#description').html(data.description);
                     } else {
                         console.log(data);
-                        alert("Vous n'avez aucune intervention en cours !");
+                        $('#nomEmp').html(data.nomEmp);
+                        $('#prenomEmp').html(data.prenomEmp);
                         $('#statut').html('Aucune intervention en cours !');
+                        alert("Vous n'avez aucune intervention en cours !");
                     }
                 });
             }

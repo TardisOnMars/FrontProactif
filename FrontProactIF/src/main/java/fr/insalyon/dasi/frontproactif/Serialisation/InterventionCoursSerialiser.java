@@ -52,6 +52,8 @@ public class InterventionCoursSerialiser extends Serialisation {
                     }
                 } else if (session.getAttribute("utilisateur") instanceof Employe) {
                     jsonContainer.addProperty("intervention", true);
+                    jsonContainer.addProperty("nomEmp", ((Employe) session.getAttribute("utilisateur")).getNom());
+                    jsonContainer.addProperty("prenomEmp", ((Employe) session.getAttribute("utilisateur")).getPrenom());
                     jsonContainer.addProperty("nom", i.getClient().getNom());
                     jsonContainer.addProperty("prenom", i.getClient().getPrenom());
                     jsonContainer.addProperty("adresse", i.getClient().getAdressePostale());
@@ -67,6 +69,10 @@ public class InterventionCoursSerialiser extends Serialisation {
                 }
             } else {
                 jsonContainer.addProperty("intervention", false);
+                if (session.getAttribute("utilisateur") instanceof Employe) {
+                    jsonContainer.addProperty("nomEmp", ((Employe) session.getAttribute("utilisateur")).getNom());
+                    jsonContainer.addProperty("prenomEmp", ((Employe) session.getAttribute("utilisateur")).getPrenom());
+                }
             }
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(jsonContainer, out);
