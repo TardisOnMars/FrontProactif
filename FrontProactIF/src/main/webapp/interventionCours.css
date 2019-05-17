@@ -16,13 +16,6 @@ h1 {
     text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
 
-#bouton-creer{
-    height:30px;
-    width:180px;
-    display:inline-block;
-    float: right;
-}
-
 .shape
 {
     margin: 0 auto;
@@ -35,8 +28,7 @@ h1 {
 }
 
 .texts{
-    display: inline-block;
-    float: left;
+
     font-size: 20px;
 }
 
@@ -44,5 +36,3 @@ h1 {
     display: inline-block;
     float: right;
 }
-
-

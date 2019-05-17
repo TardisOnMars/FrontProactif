@@ -39,6 +39,8 @@ public class InscriptionAction extends Action {
         
         String ville = request.getParameter("ville");
         
+        adresse = adresse + ", " + ville;
+        
         String telephone = request.getParameter("telephone");
         
         String naissance = request.getParameter("naissance");
@@ -58,9 +60,9 @@ public class InscriptionAction extends Action {
         Client c = new Client(civ, nom, prenom, dateNaissance, adresse, email, telephone, password);
 
         if (Service.InscrireClient(c)) {
-            request.setAttribute("connexion", true);
+            request.setAttribute("inscription", true);
         } else {
-            request.setAttribute("connexion", false);
+            request.setAttribute("inscription", false);
         }
         return true;
     }

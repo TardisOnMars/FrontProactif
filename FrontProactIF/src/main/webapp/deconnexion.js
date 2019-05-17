@@ -16,15 +16,14 @@ function verificationClient() {
         url: './ActionServlet',
         method: 'POST',
         data: {
-            todo: 'verification'
+            todo: 'verificationClient'
         },
         dataType: 'json'
-    }).done(function (data) {
-        console.log(data.type);
-        if(data.type === "employe" || data.type === undefined){
-            console.log(data.type);
+    }).fail(function(error){
+        if(error.status === 403){
             deconnexion();
             window.location = "index.html";
+            alert("Forbidden ! Vous n'avez pas le droit d'accéder à cette page");
         }
     });
 }
@@ -34,13 +33,14 @@ function verificationEmploye() {
         url: './ActionServlet',
         method: 'POST',
         data: {
-            todo: 'verification'
+            todo: 'verificationEmploye'
         },
         dataType: 'json'
-    }).done(function (data) {
-        if(data.type === "client" || data.type === undefined){
+    }).fail(function(error){
+        if(error.status === 403){
             deconnexion();
             window.location = "index.html";
+            alert("Forbidden ! Vous n'avez pas le droit d'accéder à cette page");
         }
     });
 }

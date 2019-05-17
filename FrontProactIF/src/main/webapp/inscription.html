@@ -13,10 +13,11 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Inscription au service ProactIF</h1>
-        <form>
-            <div class =shape>
-                <span id ="fill">Remplissez tous les champs et inscrivez-vous !</span>
-                <br><br><br>
+
+        <div class =shape>
+            <span id ="fill">Remplissez tous les champs et inscrivez-vous !</span>
+            <br><br><br>
+            <form>
                 <span class ="texts">Nom</span> 
                 <input class ="champs" type="text" id="champ-nom" name="nom" placeholder="Nom" />
                 <br><br><br>
@@ -39,20 +40,21 @@ and open the template in the editor.
                 <input class ="champs" type="text" id="champ-telephone" name="telephone" placeholder="Téléphone" />
                 <br><br><br>
                 <span class ="texts">Date de Naissance</span>
-                <input class ="champs" type="date" id="champ-naissance" name="naissance">
+                <input class ="champs" type="date" id="champ-naissance" name="naissance"/>
                 <br><br><br>
                 <hr>
                 <br><br><br>
                 <span class ="texts">Email</span>
-                <input class ="champs" type="email" id = "champ-email" name="email" placeholder="E-mail">
+                <input class ="champs" type="email" id = "champ-email" name="email" placeholder="E-mail"/>
                 <br><br><br>
                 <span class ="texts">Mot de Passe</span>
-                <input class ="champs" type="password" id = "champ-mdp" name="mdp" placeholder="Mot de Passe">
-                <br><br><br>
-                <input class = "button" id="bouton-accueil" type="button" value="Retour à l'accueil" onclick="location.href = 'index.html'"/>
-                <button id="bouton-inscription">S'inscrire</button>
-            </div>
-        </form>
+                <input class ="champs" type="password" id = "champ-mdp" name="mdp" placeholder="Mot de Passe"/>
+            </form>
+            <br><br><br>
+            <input class = "button" id="bouton-accueil" type="button" value="Retour à l'accueil" onclick="location.href = 'index.html'"/>
+            <button id="bouton-inscription">S'inscrire</button>
+        </div>
+
         <script>
 
             function inscription() {
@@ -66,33 +68,38 @@ and open the template in the editor.
                 var champEmail = $('#champ-email').val();
                 var champPassword = $('#champ-mdp').val();
 
-                $('#message').html('Connexion en cours...');
-
-                $.ajax({
-                    url: './ActionServlet',
-                    method: 'POST',
-                    data: {
-                        todo: 'inscription',
-                        nom: champNom,
-                        prenom: champPrenom,
-                        civilite: champCivilite,
-                        adresse: champAdresse,
-                        ville: champVille,
-                        tel: champTel,
-                        naissance: champNaissance,
-                        email: champEmail,
-                        password: champPassword
-                    },
-                    dataType: 'json'
-                }).done(function (data) {
-                    if (data.inscription === true) {
-                        $('#message').html('Inscription réussie !');
-                        window.location = "test.html";
-                    } else {
-                        console.log(data.connexion);
-                        $('#message').html("Echec de l'inscription");
-                    }
-                });
+                if (champNom === "" || champPrenom === "" || champCivilite === ""
+                        || champAdresse === "" || champVille === ""
+                        || champTel === "" || champNaissance === ""
+                        || champEmail === "" || champPassword === "") {
+                    alert("Veuillez remplir tous les champs !")
+                } else {
+                    $.ajax({
+                        url: './ActionServlet',
+                        method: 'POST',
+                        data: {
+                            todo: 'inscription',
+                            nom: champNom,
+                            prenom: champPrenom,
+                            civilite: champCivilite,
+                            adresse: champAdresse,
+                            ville: champVille,
+                            tel: champTel,
+                            naissance: champNaissance,
+                            email: champEmail,
+                            password: champPassword
+                        },
+                        dataType: 'json'
+                    }).done(function (data) {
+                        if (data.inscription === true) {
+                            window.location = "index.html";
+                            alert("Bienvenue chez ProactIF !")
+                        } else {
+                            console.log(data.connexion);
+                            alert("Echec de l'inscription.")
+                        }
+                    });
+                }
             }
 
             $(document).ready(function () {

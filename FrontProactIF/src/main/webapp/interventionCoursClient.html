@@ -8,24 +8,26 @@
         <script>
             verificationClient();
         </script>
-        <link rel = "stylesheet" href = "navbar.css"/>
+        <link rel = "stylesheet" href = "interventionCours.css"/>
     </head>
     <body>
         <ul>
             <li><a href="historique.html">Historique</a></li>
             <li><a href="creerIntervention.html">Demander une intervention</a></li>
             <li><a class="active" href="interventionCoursClient.html">Intervention en cours</a></li>
-            <li style="float:right"><a href="#about">Deconnexion</a></li>
+            <li style="float:right"><a href="index.html">Deconnexion</a></li>
         </ul>
         <h1>Intervention</h1>
-        <span>Type :</span>
-        <div id ="type"></div>
-        <span>Statut :</span>
-        <div id ="statut"></div>
-        <span>Date Emission :</span>
-        <div id ="date"></div>
-        <span>Description :</span>
-        <div id ="description"></div>
+        <div class="shape">
+            <span class="texts" id ="labelType">Type :</span>
+            <div class="champs" id ="type"></div>
+            <span class="texts" id ="labelStatut">Statut :</span>
+            <div class="champs" id ="statut"></div>
+            <span class="texts" id ="labelDate">Date Emission :</span>
+            <div class="champs" id ="date"></div>
+            <span class="texts" id ="labelDescription">Description :</span>
+            <div class="champs" id ="description"></div>
+        </div>
 
         <script>
 
@@ -45,8 +47,12 @@
                         $('#date').html(data.dateDebut);
                         $('#description').html(data.description);
                     } else {
-                        console.log(data);
+                        document.getElementById("labelType").style.display = 'none';
+                        document.getElementById("labelDate").style.display = 'none';
+                        document.getElementById("labelDescription").style.display = 'none';
                         $('#statut').html('Aucune intervention en cours !');
+                        alert("Vous n'avez aucune intervention en cours !");
+
                     }
                 });
             }

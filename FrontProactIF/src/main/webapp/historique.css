@@ -16,13 +16,6 @@ h1 {
     text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 }
 
-#bouton-creer{
-    height:30px;
-    width:180px;
-    display:inline-block;
-    float: right;
-}
-
 .shape
 {
     margin: 0 auto;
@@ -34,9 +27,21 @@ h1 {
     padding: 40px;
 }
 
+.shapeDetails
+{
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 700px;
+    vertical-align: middle;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    border: 5px solid black;
+    padding: 15px;
+    padding-top: 0px;
+}
+
 .texts{
-    display: inline-block;
-    float: left;
+
     font-size: 20px;
 }
 
@@ -45,4 +50,38 @@ h1 {
     float: right;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
 
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr{
+    background: rgba(255, 255, 255, 0.8);
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+i {
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}

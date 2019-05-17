@@ -8,27 +8,50 @@
         <script>
             verificationClient();
         </script>
-        <link rel = "stylesheet" href = "navbar.css"/>
+        <link rel = "stylesheet" href = "historique.css"/>
     </head>
     <body>
         <ul>
             <li><a class="active" href="historique.html">Historique</a></li>
             <li><a href="creerIntervention.html">Demander une intervention</a></li>
             <li><a href="interventionCoursClient.html">Intervention en cours</a></li>
-            <li style="float:right"><a href="#about">Deconnexion</a></li>
+            <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
         <h1>Toutes vos interventions !</h1>
-        <table id="tableHisto">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th>Statut</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="shape">
+            <table id="tableHisto">
+                <thead>
+                    <tr>
+                        <th>Date &nbsp;<i class="arrow up" onclick="sortTableDateUp()"></i>&nbsp;<i class="arrow down" onclick="sortTableDateDown()"></i></th>
+                        <th>Type &nbsp;<i class="arrow up" onclick="sortTableTypeUp()"></i>&nbsp;<i class="arrow down" onclick="sortTableTypeDown()"></i></th>
+                        <th>Statut &nbsp;<i class="arrow up" onclick="sortTableStatutUp()"></i>&nbsp;<i class="arrow down" onclick="sortTableStatutDown()"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="shapeDetails">
+                <h2>Détails</h2>
+                <br>
+                <span class="texts">Type</span>
+                <span class="champs" id="type"></span>
+                <br><br><br>
+                <span class="texts">Statut</span>
+                <span class="champs" id="statut">Aucune intervention selectionnée</span>
+                <br><br><br>
+                <span class="texts">Description</span>
+                <span class="champs" id="description">Aucune intervention selectionnée</span>
+                <br><br><br>
+                <span class="texts">Date Debut</span>
+                <span class="champs" id="dateDebut">Aucune intervention selectionnée</span>
+                <br><br><br>
+                <span class="texts">Date Fin</span>
+                <span class="champs" id="dateFin">Aucune intervention selectionnée</span>
+                <br><br><br>
+                <span class="texts">Commentaire</span>
+                <span class="champs" id="commentaire">Aucune intervention selectionnée</span>
+            </div>
+        </div>
         <script>
 
             function enCours() {
@@ -44,7 +67,7 @@
                     console.log(data.interventions);
                     if (data.intervention === true) {
                         $.each(data.interventions, function (idx, obj) {
-                            addRow(obj.dateDebut, obj.type, obj.statut);
+                            addRow(obj);
                         });
                     } else {
                         console.log(data.connexion);
@@ -57,17 +80,198 @@
                 enCours();
             });
 
-            function addRow(date, type, statut) {
+            function addRow(inter) {
                 var table = document.getElementById("tableHisto");
                 var row = table.insertRow(1);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
-                cell1.innerHTML = date;
-                cell2.innerHTML = type;
-                cell3.innerHTML = statut;
+                cell1.innerHTML = inter.dateDebut;
+                cell2.innerHTML = inter.type;
+                cell3.innerHTML = inter.statut;
+
+                row.addEventListener('click', function () {
+                    $("#statut").html(inter.statut);
+                    $("#type").html(inter.type);
+                    $("#dateDebut").html(inter.dateDebut);
+
+                    if (inter.dateFin === undefined) {
+                        $("#dateFin").html("L'intervention est en cours !");
+                    } else {
+                        $("#dateFin").html(inter.dateFin);
+                    }
+
+                    $("#description").html(inter.description);
+
+                    if (inter.commentaire === undefined) {
+                        $("#commentaire").html("L'intervention est en cours !");
+                    } else {
+                        $("#commentaire").html(inter.commentaire);
+                    }
+
+                });
             }
 
+            function sortTableDateUp() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[0];
+                        y = rows[i + 1].getElementsByTagName("TD")[0];
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableDateUp() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[0];
+                        y = rows[i + 1].getElementsByTagName("TD")[0];
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableDateDown() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[0];
+                        y = rows[i + 1].getElementsByTagName("TD")[0];
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableTypeUp() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[1];
+                        y = rows[i + 1].getElementsByTagName("TD")[1];
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableTypeDown() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[1];
+                        y = rows[i + 1].getElementsByTagName("TD")[1];
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableStatutUp() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[2];
+                        y = rows[i + 1].getElementsByTagName("TD")[2];
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableStatutDown() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("tableHisto");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[2];
+                        y = rows[i + 1].getElementsByTagName("TD")[2];
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
         </script>
     </body>
 </html>

@@ -15,7 +15,6 @@ import fr.insalyon.dasi.frontproactif.Action.HistoriqueAction;
 import fr.insalyon.dasi.frontproactif.Action.InscriptionAction;
 import fr.insalyon.dasi.frontproactif.Action.InterventionCoursAction;
 import fr.insalyon.dasi.frontproactif.Action.InterventionsJourAction;
-import fr.insalyon.dasi.frontproactif.Action.VerificationAction;
 import fr.insalyon.dasi.frontproactif.Serialisation.CloturerSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.ConnexionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.CreerInterventionSerialiser;
@@ -24,7 +23,6 @@ import fr.insalyon.dasi.frontproactif.Serialisation.InscriptionSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InterventionCoursSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.InterventionsJourSerialiser;
 import fr.insalyon.dasi.frontproactif.Serialisation.Serialisation;
-import fr.insalyon.dasi.frontproactif.Serialisation.VerificationSerialisation;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +30,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import metier.model.Client;
+import metier.model.Employe;
 import metier.model.Personne;
 import util.DebugLogger;
 
@@ -76,7 +76,8 @@ public class ActionServlet extends HttpServlet {
 
             if (user == null) {
                 response.sendError(403, "Forbidden (NoUser)");
-                DebugLogger.log("Forbidden");
+            } else if ((user instanceof Client && "verificationEmploye".equals(todo)) || (user instanceof Employe && "verificationClient".equals(todo))) {
+                response.sendError(403, "Forbidden (Wrong User)");
             } else {
                 Action a = null;
                 Serialisation s = null;
@@ -114,12 +115,6 @@ public class ActionServlet extends HttpServlet {
                     case "deconnexion":
                         a = new DeconnexionAction();
                         a.execute(request);
-                        break;
-                    case "verification":
-                        a = new VerificationAction();
-                        a.execute(request);
-                        s = new VerificationSerialisation();
-                        s.serialiser(request, response);
                         break;
                 }
                 if (todo == null) {

@@ -39,7 +39,16 @@ public class HistoriqueSerialiser extends Serialisation {
                     JsonObject jsonIntervention = new JsonObject();
                     jsonIntervention.addProperty("statut", i.getStatut().toString());
                     jsonIntervention.addProperty("dateDebut", i.getDate_emission().toString());
+
+                    if (i.getDate_fin() != null) {
+                        jsonIntervention.addProperty("dateFin", i.getDate_fin().toString());
+                    }
+
                     jsonIntervention.addProperty("description", i.getDescription());
+
+                    if (i.getCommentaire() != null) {
+                        jsonIntervention.addProperty("commentaire", i.getCommentaire());
+                    }
 
                     if (i instanceof Animal) {
                         jsonIntervention.addProperty("type", "Animal");

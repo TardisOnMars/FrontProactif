@@ -23,10 +23,9 @@ and open the template in the editor.
             <li><a href="interventionCoursClient.html">Intervention en cours</a></li>
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
-        <br><br><br><br>
+        <h1>Quel est votre problème ?</h1> 
+        <br><br>
         <div class="shape">
-            <span id="demande">Quel est votre problème ?</span> 
-            <br><br><br><br>
             <span class="texts" id="animal">Catégorie</span>
             <select class="champs" id="champ-categorie" name="categorie">
                 <option>Animal</option>
@@ -56,10 +55,10 @@ and open the template in the editor.
             var choixAnimal = document.getElementById("champ-nom");
             var choixObjet = document.getElementById("champ-objet");
             var choixEntreprise = document.getElementById("champ-entreprise");
-            
+
             hideElements();
-            
-            function hideElements(){
+
+            function hideElements() {
                 if ($('#champ-categorie').val() === "Animal")
                 {
                     nomAnimal.style.display = 'initial';
@@ -84,11 +83,11 @@ and open the template in the editor.
                     choixEntreprise.style.display = 'initial';
                 }
             }
-            
+
             choix.addEventListener("mouseleave", function () {
                 hideElements();
             });
-            
+
             choix.addEventListener("click", function () {
                 hideElements();
             });
@@ -116,6 +115,7 @@ and open the template in the editor.
                     if (data.intervention === true) {
                         window.location = "historique.html";
                     } else {
+                        alert("Votre demande a échoué. Veuillez réessayer plus tard !");
                     }
                 });
             }

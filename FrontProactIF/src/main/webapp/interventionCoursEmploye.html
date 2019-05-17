@@ -12,8 +12,8 @@
     </head>
     <body>
         <ul>
-            <li><a href="interventionCoursEmploye.html">Intervention en cours</a></li>
-            <li><a class="active" href="cloturerIntervention.html">Cloturer l'intervention</a></li>
+            <li><a class="active" href="interventionCoursEmploye.html">Intervention en cours</a></li>
+            <li><a href="cloturerIntervention.html">Cloturer l'intervention</a></li>
             <li><a href="tableauBord.html">Tableau de Bord</a></li>
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
@@ -49,6 +49,7 @@
                         $('#description').html(data.description);
                     } else {
                         console.log(data);
+                        alert("Vous n'avez aucune intervention en cours !");
                         $('#statut').html('Aucune intervention en cours !');
                     }
                 });
