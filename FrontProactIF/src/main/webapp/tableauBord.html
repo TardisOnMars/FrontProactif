@@ -5,17 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="deconnexion.js"></script>
+        <link rel = "stylesheet" href = "tableauBord.css"/>
         <script>
             verificationEmploye();
         </script>
         <link rel = "stylesheet" href = "navbar.css"/>
         <title>Tableau de bord</title>
-
-        <style type="text/css">
-            html, body { height: 100%; margin: 0; padding: 0; }
-            h1 { text-align: center; }
-            #map { height: 80%; }
-        </style>
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
     </head>
     <body>
@@ -27,41 +22,45 @@
         </ul>
         <h1>Interventions du jour</h1>
         <div id="map"></div>
-        <h2>Détails de l'intervention</h2>
-        <div id="client">
-            <h3>Informations Client</h3>
-            <span>Nom</span>
-            <span id="nom"></span>
-            <br>
-            <span>Prénom</span>
-            <span id="prenom"></span>
-            <br>
-            <span>Adresse</span>
-            <span id="adresse"></span>
-            <br>
-            <span>Téléphone</span>
-            <span id="telephone"></span>
-            <br>
-            <span>Email</span>
-            <span id="email"></span>
-        </div>
-        <div id="intervention">
-            <h3>Informations Intervention</h3>
-            <br>
-            <span>Statut</span>
-            <span id="statut"></span>
-            <br>
-            <span>Type</span>
-            <span id="type"></span>
-            <br>
-            <span>Date Emission</span>
-            <span id="dateDebut"></span>
-            <br>
-            <span>Date de Fin</span>
-            <span id="dateFin"></span>
-            <br>
-            <span>Description</span>
-            <span id="description"></span>
+        <div id="shape">
+            <h2>Détails de l'intervention</h2>
+            <div id="details">
+                <div id="client">
+                    <h3>Informations Client</h3>
+                    <span class="texts">Nom</span>
+                    <span class="champs" id="nom"></span>
+                    <br>
+                    <span class="texts">Prénom</span>
+                    <span class="champs" id="prenom"></span>
+                    <br>
+                    <span class="texts">Adresse</span>
+                    <span class="champs" id="adresse"></span>
+                    <br>
+                    <span class="texts">Téléphone</span>
+                    <span class="champs" id="telephone"></span>
+                    <br>
+                    <span class="texts">Email</span>
+                    <span class="champs" id="email"></span>
+                </div>
+                <div id="intervention">
+                    <h3>Informations Intervention</h3>
+                    <br>
+                    <span class="texts">Statut</span>
+                    <span class="champs" id="statut"></span>
+                    <br>
+                    <span class="texts">Type</span>
+                    <span class="champs" id="type"></span>
+                    <br>
+                    <span class="texts">Date Emission</span>
+                    <span class="champs" id="dateDebut"></span>
+                    <br>
+                    <span class="texts">Date de Fin</span>
+                    <span class="champs" id="dateFin"></span>
+                    <br>
+                    <span class="texts">Description</span>
+                    <span class="champs" id="description"></span>
+                </div>
+            </div>
         </div>
         <script type="text/javascript">
 
@@ -82,12 +81,12 @@
                     $("#adresse").html(inter.client.adresse);
                     $("#telephone").html(inter.client.telephone);
                     $("#email").html(inter.client.email);
-                    
+
                     $("#statut").html(inter.statut);
                     $("#type").html(inter.type);
                     $("#dateDebut").html(inter.dateDebut);
                     $("#dateFin").html(inter.dateFin);
-                    $("#description").html(inter.description);                    
+                    $("#description").html(inter.description);
                 });
             }
 

@@ -18,15 +18,18 @@
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
         <h1>Cloturer Intervention</h1>
-        <span>Statut : </span>
-        <select id ="champ-statut" name="statut">
-            <option>Succès
-            <option>Echec
-        </select><br>
-        <span>Commentaire :</span> 
-        <textarea id="champ-commentaire" name ="commentaire"></textarea><br>
-        <button id="bouton-cloture">Cloturer la demande</button>
-
+        <div class="shape">
+            <span class="texts">Statut : </span>
+            <select class ="champs" id ="champ-statut" name="statut">
+                <option>Succès
+                <option>Echec
+            </select>
+            <br>
+            <span class="texts">Commentaire :</span> 
+            <textarea class ="champs" id="champ-commentaire" name ="commentaire"></textarea><br>
+            <br><br><br>
+            <button class ="champs" id="bouton-cloture">Cloturer la demande</button>
+        </div>
         <script>
             function cloture() {
                 var champStatut = $('#champ-statut').val();

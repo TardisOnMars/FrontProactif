@@ -1,0 +1,71 @@
+html, body {
+    height: 100%; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body 
+{
+    background: url("ressources/wallpaperEmp.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-backgroud-size: cover;
+    background-size: cover;  
+}
+
+h1 {
+    margin-left: 100px;
+    color: white;
+    text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+}
+
+h2 {
+    float: left;
+    margin-left: 3%;
+    color: white;
+    text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+}
+
+#map { 
+    height: 60%; 
+    width: 40%;
+    float:left;
+    margin: auto;
+    margin-left: 5%;
+}
+
+#shape{
+    display:inline-block;
+    height: 55%;
+    float: left;
+    margin-left: 3%;
+    background: rgba(0, 255, 255, 0.8);
+    padding: 20px;
+    padding-top: 5px;
+    border: 10px solid grey;
+    border-radius: 30px; 
+    width: 40%;
+}
+
+#details{
+    display:inline-block;
+    float: left;
+    margin-left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    padding-top: 5px;
+    border: 5px solid black;
+    border-radius: 30px;
+    width:90%;
+    margin-right: 10px;
+}
+
+.texts{
+
+    font-size: 20px;
+}
+
+.champs {
+    display: inline-block;
+    float: right;
+}

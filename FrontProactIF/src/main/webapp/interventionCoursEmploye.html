@@ -4,7 +4,7 @@
         <title>Intervention en cours</title>
         <meta charset="UTF-8">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <link rel = "stylesheet" href = "navbar.css"/>
+        <link rel = "stylesheet" href = "interventionCoursEmp.css"/>
         <script type="text/javascript" src="deconnexion.js"></script>
         <script>
             verificationEmploye();
@@ -18,17 +18,22 @@
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
         <h1>Intervention</h1>
-        <span>Nom Client :</span>
-        <div id ="nom"></div>
-        <span>Prénom Client :</span>
-        <div id ="prenom"></div>
-        <span>Adresse :</span>
-        <div id ="adresse"></div>
-        <span>Date Emission :</span>
-        <div id ="type"></div>
-        <span>Description :</span>
-        <div id ="description"></div>
-
+        <div class="shape">
+            <span class="texts">Nom Client :</span>
+            <div class="champs" id ="nom">Aucune Intervention en Cours</div>
+            <br>
+            <span class="texts">Prénom Client :</span>
+            <div class="champs" id ="prenom">Aucune Intervention en Cours</div>
+            <br>
+            <span class="texts">Adresse :</span>
+            <div class="champs" id ="adresse">Aucune Intervention en Cours</div>
+            <br>
+            <span class="texts">Date Emission :</span>
+            <div class="champs" id ="type">Aucune Intervention en Cours</div>
+            <br>
+            <span class="texts">Description :</span>
+            <div class="champs" id ="description">Aucune Intervention en Cours</div>
+        </div>
         <script>
 
             function enCours() {
