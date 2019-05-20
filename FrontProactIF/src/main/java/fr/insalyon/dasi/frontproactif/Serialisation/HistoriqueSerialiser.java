@@ -38,10 +38,10 @@ public class HistoriqueSerialiser extends Serialisation {
                 for (Intervention i : li) {
                     JsonObject jsonIntervention = new JsonObject();
                     jsonIntervention.addProperty("statut", i.getStatut().toString());
-                    jsonIntervention.addProperty("dateDebut", i.getDate_emission().toString());
+                    jsonIntervention.addProperty("dateDebut", i.getDate_emission().getTime());
 
                     if (i.getDate_fin() != null) {
-                        jsonIntervention.addProperty("dateFin", i.getDate_fin().toString());
+                        jsonIntervention.addProperty("dateFin", i.getDate_fin().getTime());
                     }
 
                     jsonIntervention.addProperty("description", i.getDescription());
@@ -52,8 +52,11 @@ public class HistoriqueSerialiser extends Serialisation {
 
                     if (i instanceof Animal) {
                         jsonIntervention.addProperty("type", "Animal");
+                        jsonIntervention.addProperty("nomAnimal", ((Animal) i).getNom_animal());
                     } else if (i instanceof Livraison) {
                         jsonIntervention.addProperty("type", "Livraison");
+                        jsonIntervention.addProperty("objet", ((Livraison) i).getObjet());
+                        jsonIntervention.addProperty("entreprise", ((Livraison) i).getEntreprise());
                     } else if (i instanceof Incident) {
                         jsonIntervention.addProperty("type", "Incident");
                     }

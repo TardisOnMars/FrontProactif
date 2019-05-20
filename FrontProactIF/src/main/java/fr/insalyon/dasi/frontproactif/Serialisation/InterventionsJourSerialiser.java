@@ -56,8 +56,11 @@ public class InterventionsJourSerialiser extends Serialisation{
 
                     if (i instanceof Animal) {
                         jsonIntervention.addProperty("type", "Animal");
+                        jsonIntervention.addProperty("nomAnimal", ((Animal) i).getNom_animal());
                     } else if (i instanceof Livraison) {
                         jsonIntervention.addProperty("type", "Livraison");
+                        jsonIntervention.addProperty("objet", ((Livraison) i).getObjet());
+                        jsonIntervention.addProperty("entreprise", ((Livraison) i).getEntreprise());
                     } else if (i instanceof Incident) {
                         jsonIntervention.addProperty("type", "Incident");
                     }

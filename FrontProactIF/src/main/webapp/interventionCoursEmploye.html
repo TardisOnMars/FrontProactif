@@ -13,7 +13,6 @@
     <body>
         <ul>
             <li><a class="active" href="interventionCoursEmploye.html">Intervention en cours</a></li>
-            <li><a href="cloturerIntervention.html">Cloturer l'intervention</a></li>
             <li><a href="tableauBord.html">Tableau de Bord</a></li>
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
@@ -26,23 +25,99 @@
                 <h2 id="prenomEmp" class="texts">Prénom Emp</h2>
             </div>
             <div class="shape">
-                <span class="texts">Nom Client :</span>
-                <div class="champs" id ="nom">Aucune Intervention en Cours</div>
-                <br>
-                <span class="texts">Prénom Client :</span>
-                <div class="champs" id ="prenom">Aucune Intervention en Cours</div>
-                <br>
-                <span class="texts">Adresse :</span>
-                <div class="champs" id ="adresse">Aucune Intervention en Cours</div>
-                <br>
-                <span class="texts">Date Emission :</span>
-                <div class="champs" id ="type">Aucune Intervention en Cours</div>
-                <br>
-                <span class="texts">Description :</span>
-                <div class="champs" id ="description">Aucune Intervention en Cours</div>
+                <div id="details">
+                    <div id="client">
+                        <h3>Informations Client</h3>
+                        <span class="texts">Nom</span>
+                        <span class="champs" id="nom"></span>
+                        <br>
+                        <span class="texts">Prénom</span>
+                        <span class="champs" id="prenom"></span>
+                        <br>
+                        <span class="texts">Adresse</span>
+                        <span class="champs" id="adresse"></span>
+                        <br>
+                        <span class="texts">Téléphone</span>
+                        <span class="champs" id="telephone"></span>
+                        <br>
+                        <span class="texts">Email</span>
+                        <span class="champs" id="email"></span>
+                    </div>
+                    <div id="intervention">
+                        <h3>Informations Intervention</h3>
+                        <br>
+                        <span class="texts">Statut</span>
+                        <span class="champs" id="statut"></span>
+                        <br>
+                        <span class="texts">Type</span>
+                        <span class="champs" id="type"></span>
+                        <br>
+                        <span class="texts" id="animalT">Animal</span>
+                        <span class="champs" id="animal"></span>
+                        <br>
+                        <span class="texts" id="objetT">Objet</span>
+                        <span class="champs" id="objet"></span>
+                        <br>
+                        <span class="texts" id="entrepriseT">Entreprise</span>
+                        <span class="champs" id="entreprise"></span>
+                        <br>
+                        <span class="texts">Date Emission</span>
+                        <span class="champs" id="dateDebut"></span>
+                        <br>
+                        <span class="texts">Date de Fin</span>
+                        <span class="champs" id="dateFin"></span>
+                        <br>
+                        <span class="texts">Description</span>
+                        <span class="champs" id="description"></span>
+                    </div>
+                </div>
+            </div>
+            <div id ="cloture">
+                <h1>Cloturer Intervention</h1>
+                <div class="shape">
+                    <span class="texts">Statut : </span>
+                    <select class ="champs" id ="champ-statut" name="statut">
+                        <option>Succès
+                        <option>Echec
+                    </select>
+                    <br>
+                    <span id ="commentaire" class="texts">Commentaire :</span> 
+                    <textarea id ="commentaireT" class ="champs" name ="commentaire"></textarea><br>
+                    <br><br><br>
+                    <button class ="champs" id="bouton-cloture">Cloturer la demande</button>
+                </div>
             </div>
         </div>
         <script>
+            document.getElementById("objet").style.display = 'none';
+            document.getElementById("entreprise").style.display = 'none';
+            document.getElementById("objetT").style.display = 'none';
+            document.getElementById("entrepriseT").style.display = 'none';
+            document.getElementById("animal").style.display = 'none';
+            document.getElementById("animalT").style.display = 'none';
+
+            function cloture() {
+                var champStatut = $('#champ-statut').val();
+                var champCommentaire = $('#commentaireT').val();
+                console.log(champStatut + " " + champCommentaire);
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'cloturerIntervention',
+                        statut: champStatut,
+                        commentaire: champCommentaire
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.cloture === true) {
+                        window.location = "interventionCoursEmploye.html";
+                    } else {
+                        console.log(data.cloture);
+                        alert("La cloture n'a pas pu être effectuée.");
+                    }
+                });
+            }
 
             function enCours() {
 
@@ -60,13 +135,51 @@
                         $('#nom').html(data.nom);
                         $('#prenom').html(data.prenom);
                         $('#adresse').html(data.adresse);
+                        $('#telephone').html(data.telephone);
+                        $('#email').html(data.email);
+                        $('#statut').html(data.statut);
                         $('#type').html(data.type);
+
+                        if (data.type === "Animal") {
+                            $("#animal").html(data.nomAnimal);
+                            document.getElementById("objet").style.display = 'none';
+                            document.getElementById("entreprise").style.display = 'none';
+                            document.getElementById("objetT").style.display = 'none';
+                            document.getElementById("entrepriseT").style.display = 'none';
+                            document.getElementById("animal").style.display = 'initial';
+                            document.getElementById("animalT").style.display = 'initial';
+                        } else if (data.type === "Livraison") {
+                            $("#objet").html(data.objet);
+                            $("#entreprise").html(data.entreprise);
+                            document.getElementById("animal").style.display = 'none';
+                            document.getElementById("animalT").style.display = 'none';
+                            document.getElementById("objet").style.display = 'initial';
+                            document.getElementById("entreprise").style.display = 'initial';
+                            document.getElementById("objetT").style.display = 'initial';
+                            document.getElementById("entrepriseT").style.display = 'initial';
+                        } else {
+                            document.getElementById("objet").style.display = 'none';
+                            document.getElementById("entreprise").style.display = 'none';
+                            document.getElementById("objetT").style.display = 'none';
+                            document.getElementById("entrepriseT").style.display = 'none';
+                            document.getElementById("animal").style.display = 'none';
+                            document.getElementById("animalT").style.display = 'none';
+                        }
+
+                        $('#dateDebut').html(data.dateDebut);
+                        if (data.dateFin === undefined) {
+                            $('#dateFin').html("L'intervention est en cours !");
+                        } else {
+                            $('#dateFin').html(data.dateFin);
+                        }
                         $('#description').html(data.description);
                     } else {
                         console.log(data);
                         $('#nomEmp').html(data.nomEmp);
                         $('#prenomEmp').html(data.prenomEmp);
-                        $('#statut').html('Aucune intervention en cours !');
+                        $('#intervention').html('Aucune intervention en cours !');
+                        $('#client').html('');
+                        document.getElementById("cloture").style.display = 'none';
                         alert("Vous n'avez aucune intervention en cours !");
                     }
                 });
@@ -74,6 +187,10 @@
 
             $(document).ready(function () {
                 enCours();
+                $('#bouton-cloture').on('click', function () {
+                    console.log('Clic sur le bouton "Cloturer"');
+                    cloture();
+                });
             });
 
         </script>

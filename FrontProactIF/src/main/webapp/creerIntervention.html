@@ -23,29 +23,31 @@ and open the template in the editor.
             <li><a href="interventionCoursClient.html">Intervention en cours</a></li>
             <li style="float:right"><a href="index.html" onclick="deconnexion()">Deconnexion</a></li>
         </ul>
-        <h1>Quel est votre problème ?</h1> 
-        <br><br>
-        <div class="shape">
-            <span class="texts" id="animal">Catégorie</span>
-            <select class="champs" id="champ-categorie" name="categorie">
-                <option>Animal</option>
-                <option>Incident</option>
-                <option>Livraison</option>
-            </select>
-            <br><br><br><br><br>
-            <span class="texts" id="nom-animal">Nom de l'animal</span>
-            <input class="champs" type="text" id="champ-nom" name="animal" placeholder="Médor"/>
-            <br><br><br><br><br>
-            <span class="texts" id="nom-objet">Objet</span>
-            <input class="champs" type="text" id="champ-objet" name="objet" placeholder="Colis"/>
-            <br><br><br><br><br>
-            <span class="texts" id="nom-entreprise">Entreprise</span>
-            <input class="champs" type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
-            <br><br><br><br><br>
-            <span class="texts" id="description">Description</span>
-            <textarea class="champs" id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"></textarea>
-            <br><br><br><br><br>
-            <button id="bouton-creer">Créer l'intervention</button>
+        <div id="demande">
+            <h1>Quel est votre problème ?</h1> 
+            <br><br>
+            <div class="shape">
+                <span class="texts" id="animal">Catégorie</span>
+                <select class="champs" id="champ-categorie" name="categorie">
+                    <option>Animal</option>
+                    <option>Incident</option>
+                    <option>Livraison</option>
+                </select>
+                <br><br><br><br><br>
+                <span class="texts" id="nom-animal">Nom de l'animal</span>
+                <input class="champs" type="text" id="champ-nom" name="animal" placeholder="Médor"/>
+                <br><br><br><br><br>
+                <span class="texts" id="nom-objet">Objet</span>
+                <input class="champs" type="text" id="champ-objet" name="objet" placeholder="Colis"/>
+                <br><br><br><br><br>
+                <span class="texts" id="nom-entreprise">Entreprise</span>
+                <input class="champs" type="text" id="champ-entreprise" name="entreprise" placeholder="ProactIF"/>
+                <br><br><br><br><br>
+                <span class="texts" id="description">Description</span>
+                <textarea class="champs" id="champ-description" name="description" placeholder="Décrivez votre intervention ici !"></textarea>
+                <br><br><br><br><br>
+                <button id="bouton-creer">Créer l'intervention</button>
+            </div>
         </div>
         <script>
             var choix = document.getElementById("champ-categorie");
@@ -57,6 +59,7 @@ and open the template in the editor.
             var choixEntreprise = document.getElementById("champ-entreprise");
 
             hideElements();
+            enCours();
 
             function hideElements() {
                 if ($('#champ-categorie').val() === "Animal")
@@ -91,6 +94,26 @@ and open the template in the editor.
             choix.addEventListener("click", function () {
                 hideElements();
             });
+
+            function enCours() {
+                $.ajax({
+                    url: './ActionServlet',
+                    method: 'POST',
+                    data: {
+                        todo: 'interventionEnCours'
+                    },
+                    dataType: 'json'
+                }).done(function (data) {
+                    if (data.intervention === true) {
+                        document.getElementById("demande").style.display = 'none';
+                        alert("Une demande est en cours. Veuillez patienter.");
+                        setTimeout(function(){
+                            window.location = "historique.html";
+                        }, 10);
+                    }
+                });
+            }
+
 
             function creerIntervention() {
                 var type = $('#champ-categorie').val();
@@ -128,7 +151,8 @@ and open the template in the editor.
                     // appel de la fonction connexion
                     creerIntervention();
                 });
-            });
+            }
+            );
 
         </script>
     </body>

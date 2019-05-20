@@ -41,12 +41,19 @@ public class InterventionCoursSerialiser extends Serialisation {
                     jsonContainer.addProperty("intervention", true);
                     jsonContainer.addProperty("statut", i.getStatut().toString());
                     jsonContainer.addProperty("dateDebut", i.getDate_emission().toString());
+                    if (i.getDate_fin() != null) {
+                        jsonContainer.addProperty("dateFin", i.getDate_fin().toString());
+                    }
                     jsonContainer.addProperty("description", i.getDescription());
 
                     if (i instanceof Animal) {
                         jsonContainer.addProperty("type", "Animal");
+                        jsonContainer.addProperty("nomAnimal", ((Animal) i).getNom_animal());
+                        
                     } else if (i instanceof Livraison) {
                         jsonContainer.addProperty("type", "Livraison");
+                        jsonContainer.addProperty("objet", ((Livraison) i).getObjet());
+                        jsonContainer.addProperty("entreprise", ((Livraison) i).getEntreprise());
                     } else if (i instanceof Incident) {
                         jsonContainer.addProperty("type", "Incident");
                     }
@@ -57,12 +64,22 @@ public class InterventionCoursSerialiser extends Serialisation {
                     jsonContainer.addProperty("nom", i.getClient().getNom());
                     jsonContainer.addProperty("prenom", i.getClient().getPrenom());
                     jsonContainer.addProperty("adresse", i.getClient().getAdressePostale());
+                    jsonContainer.addProperty("telephone", i.getClient().getNumTel());
+                    jsonContainer.addProperty("email", i.getClient().getEmail());
                     jsonContainer.addProperty("description", i.getDescription());
-
+                    jsonContainer.addProperty("statut", i.getStatut().toString());
+                    jsonContainer.addProperty("dateDebut", i.getDate_emission().toString());
+                    if (i.getDate_fin() != null) {
+                        jsonContainer.addProperty("dateFin", i.getDate_fin().toString());
+                    }
+                    
                     if (i instanceof Animal) {
                         jsonContainer.addProperty("type", "Animal");
+                        jsonContainer.addProperty("nomAnimal", ((Animal) i).getNom_animal());
                     } else if (i instanceof Livraison) {
                         jsonContainer.addProperty("type", "Livraison");
+                        jsonContainer.addProperty("objet", ((Livraison) i).getObjet());
+                        jsonContainer.addProperty("entreprise", ((Livraison) i).getEntreprise());
                     } else if (i instanceof Incident) {
                         jsonContainer.addProperty("type", "Incident");
                     }

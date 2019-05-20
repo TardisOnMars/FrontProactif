@@ -36,6 +36,15 @@
                 <span class="texts">Type</span>
                 <span class="champs" id="type"></span>
                 <br><br><br>
+                <span class="texts" id="animalT">Animal</span>
+                <span class="champs" id="animal"></span>
+                <br><br><br>
+                <span class="texts" id="objetT">Objet</span>
+                <span class="champs" id="objet"></span>
+                <br><br><br>
+                <span class="texts" id="entrepriseT">Entreprise</span>
+                <span class="champs" id="entreprise"></span>
+                <br><br><br>
                 <span class="texts">Statut</span>
                 <span class="champs" id="statut">Aucune intervention selectionnée</span>
                 <br><br><br>
@@ -53,6 +62,12 @@
             </div>
         </div>
         <script>
+            document.getElementById("objet").style.display = 'none';
+            document.getElementById("entreprise").style.display = 'none';
+            document.getElementById("objetT").style.display = 'none';
+            document.getElementById("entrepriseT").style.display = 'none';
+            document.getElementById("animal").style.display = 'none';
+            document.getElementById("animalT").style.display = 'none';
 
             function enCours() {
 
@@ -64,13 +79,11 @@
                     },
                     dataType: 'json'
                 }).done(function (data) {
-                    console.log(data.interventions);
                     if (data.intervention === true) {
                         $.each(data.interventions, function (idx, obj) {
                             addRow(obj);
                         });
                     } else {
-                        console.log(data.connexion);
                         $('#statut').html('Aucune intervention en cours !');
                     }
                 });
@@ -81,24 +94,53 @@
             });
 
             function addRow(inter) {
+                var dateDebut = (new Date(inter.dateDebut)).toISOString().slice(0, 19).replace(/-/g, "/").replace("T", " ");
                 var table = document.getElementById("tableHisto");
                 var row = table.insertRow(1);
                 var cell1 = row.insertCell(0);
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
-                cell1.innerHTML = inter.dateDebut;
+                cell1.innerHTML = dateDebut;
                 cell2.innerHTML = inter.type;
                 cell3.innerHTML = inter.statut;
 
                 row.addEventListener('click', function () {
                     $("#statut").html(inter.statut);
                     $("#type").html(inter.type);
-                    $("#dateDebut").html(inter.dateDebut);
+
+                    if (inter.type === "Animal") {
+                        $("#animal").html(inter.nomAnimal);
+                        document.getElementById("objet").style.display = 'none';
+                        document.getElementById("entreprise").style.display = 'none';
+                        document.getElementById("objetT").style.display = 'none';
+                        document.getElementById("entrepriseT").style.display = 'none';
+                        document.getElementById("animal").style.display = 'initial';
+                        document.getElementById("animalT").style.display = 'initial';
+                    } else if (inter.type === "Livraison") {
+                        $("#objet").html(inter.objet);
+                        $("#entreprise").html(inter.entreprise);
+                        document.getElementById("animal").style.display = 'none';
+                        document.getElementById("animalT").style.display = 'none';
+                        document.getElementById("objet").style.display = 'initial';
+                        document.getElementById("entreprise").style.display = 'initial';
+                        document.getElementById("objetT").style.display = 'initial';
+                        document.getElementById("entrepriseT").style.display = 'initial';
+                    } else {
+                        document.getElementById("objet").style.display = 'none';
+                        document.getElementById("entreprise").style.display = 'none';
+                        document.getElementById("objetT").style.display = 'none';
+                        document.getElementById("entrepriseT").style.display = 'none';
+                        document.getElementById("animal").style.display = 'none';
+                        document.getElementById("animalT").style.display = 'none';
+                    }
+
+                    $("#dateDebut").html(dateDebut);
 
                     if (inter.dateFin === undefined) {
                         $("#dateFin").html("L'intervention est en cours !");
                     } else {
-                        $("#dateFin").html(inter.dateFin);
+                        var dateFin = (new Date(inter.dateFin)).toISOString().slice(0, 19).replace(/-/g, "/").replace("T", " ");
+                        $("#dateFin").html(dateFin);
                     }
 
                     $("#description").html(inter.description);
@@ -110,29 +152,6 @@
                     }
 
                 });
-            }
-
-            function sortTableDateUp() {
-                var table, rows, switching, i, x, y, shouldSwitch;
-                table = document.getElementById("tableHisto");
-                switching = true;
-                while (switching) {
-                    switching = false;
-                    rows = table.rows;
-                    for (i = 1; i < (rows.length - 1); i++) {
-                        shouldSwitch = false;
-                        x = rows[i].getElementsByTagName("TD")[0];
-                        y = rows[i + 1].getElementsByTagName("TD")[0];
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                    if (shouldSwitch) {
-                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                        switching = true;
-                    }
-                }
             }
 
             function sortTableDateUp() {

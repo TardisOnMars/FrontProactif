@@ -19,20 +19,47 @@
         </ul>
         <h1>Intervention</h1>
         <div class="shape">
-            <span class="texts" id ="labelType">Type :</span>
-            <div class="champs" id ="type"></div>
-            <span class="texts" id ="labelStatut">Statut :</span>
-            <div class="champs" id ="statut"></div>
-            <span class="texts" id ="labelDate">Date Emission :</span>
-            <div class="champs" id ="date"></div>
-            <span class="texts" id ="labelDescription">Description :</span>
-            <div class="champs" id ="description"></div>
+            <div id="details">
+                <div id="intervention">
+                    <h3>Informations Intervention</h3>
+                    <br>
+                    <span class="texts">Statut</span>
+                    <span class="champs" id="statut"></span>
+                    <br>
+                    <span class="texts">Type</span>
+                    <span class="champs" id="type"></span>
+                    <br>
+                    <span class="texts" id="animalT">Animal</span>
+                    <span class="champs" id="animal"></span>
+                    <br>
+                    <span class="texts" id="objetT">Objet</span>
+                    <span class="champs" id="objet"></span>
+                    <br>
+                    <span class="texts" id="entrepriseT">Entreprise</span>
+                    <span class="champs" id="entreprise"></span>
+                    <br>
+                    <span class="texts">Date Emission</span>
+                    <span class="champs" id="dateDebut"></span>
+                    <br>
+                    <span class="texts">Date de Fin</span>
+                    <span class="champs" id="dateFin"></span>
+                    <br>
+                    <span class="texts">Description</span>
+                    <span class="champs" id="description"></span>
+                </div>
+            </div>
         </div>
 
         <script>
 
             function enCours() {
-
+                document.getElementById("objet").style.display = 'none';
+                document.getElementById("entreprise").style.display = 'none';
+                document.getElementById("objetT").style.display = 'none';
+                document.getElementById("entrepriseT").style.display = 'none';
+                document.getElementById("animal").style.display = 'none';
+                document.getElementById("animalT").style.display = 'none';
+                
                 $.ajax({
                     url: './ActionServlet',
                     method: 'POST',
@@ -42,15 +69,52 @@
                     dataType: 'json'
                 }).done(function (data) {
                     if (data.intervention === true) {
-                        $('#type').html(data.type);
+                        $('#nomEmp').html(data.nomEmp);
+                        $('#prenomEmp').html(data.prenomEmp);
+                        $('#nom').html(data.nom);
+                        $('#prenom').html(data.prenom);
+                        $('#adresse').html(data.adresse);
+                        $('#telephone').html(data.telephone);
+                        $('#email').html(data.email);
                         $('#statut').html(data.statut);
-                        $('#date').html(data.dateDebut);
+                        $('#type').html(data.type);
+
+                        if (data.type === "Animal") {
+                            $("#animal").html(data.nomAnimal);
+                            document.getElementById("objet").style.display = 'none';
+                            document.getElementById("entreprise").style.display = 'none';
+                            document.getElementById("objetT").style.display = 'none';
+                            document.getElementById("entrepriseT").style.display = 'none';
+                            document.getElementById("animal").style.display = 'initial';
+                            document.getElementById("animalT").style.display = 'initial';
+                        } else if (data.type === "Livraison") {
+                            $("#objet").html(data.objet);
+                            $("#entreprise").html(data.entreprise);
+                            document.getElementById("animal").style.display = 'none';
+                            document.getElementById("animalT").style.display = 'none';
+                            document.getElementById("objet").style.display = 'initial';
+                            document.getElementById("entreprise").style.display = 'initial';
+                            document.getElementById("objetT").style.display = 'initial';
+                            document.getElementById("entrepriseT").style.display = 'initial';
+                        } else {
+                            document.getElementById("objet").style.display = 'none';
+                            document.getElementById("entreprise").style.display = 'none';
+                            document.getElementById("objetT").style.display = 'none';
+                            document.getElementById("entrepriseT").style.display = 'none';
+                            document.getElementById("animal").style.display = 'none';
+                            document.getElementById("animalT").style.display = 'none';
+                        }
+
+                        $('#dateDebut').html(data.dateDebut);
+                        
+                        if (data.dateFin === undefined) {
+                            $('#dateFin').html("L'intervention est en cours !");
+                        } else {
+                            $('#dateFin').html(data.dateFin);
+                        }
                         $('#description').html(data.description);
                     } else {
-                        document.getElementById("labelType").style.display = 'none';
-                        document.getElementById("labelDate").style.display = 'none';
-                        document.getElementById("labelDescription").style.display = 'none';
-                        $('#statut').html('Aucune intervention en cours !');
+                        $('#intervention').html('Aucune intervention en cours !');
                         alert("Vous n'avez aucune intervention en cours !");
 
                     }
