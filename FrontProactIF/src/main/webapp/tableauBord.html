@@ -11,7 +11,6 @@
         </script>
         <link rel = "stylesheet" href = "navbar.css"/>
         <title>Tableau de bord</title>
-        <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
     </head>
     <body>
         <ul>
@@ -79,6 +78,7 @@
             document.getElementById("animalT").style.display = 'none';
 
             var googleMapInstance = null;
+            var oms = null;
 
             function makeInfoWindow(title) {
                 return new google.maps.InfoWindow({
@@ -99,7 +99,7 @@
                     $("#statut").html(inter.statut);
                     $("#type").html(inter.type);
                     if (inter.type === "Animal") {
-                        $("#animal").html(data.nomAnimal);
+                        $("#animal").html(inter.nomAnimal);
                         document.getElementById("objet").style.display = 'none';
                         document.getElementById("entreprise").style.display = 'none';
                         document.getElementById("objetT").style.display = 'none';
@@ -135,6 +135,14 @@
                     center: {lat: 45.7601424, lng: 4.8961779},
                     zoom: 13
                 });
+
+                oms = new OverlappingMarkerSpiderfier(googleMapInstance,
+                        {
+                            markersWontMove: true,
+                            markersWontHide: true,
+                            keepSpiderfied: true,
+                            circleSpiralSwitchover: 40
+                        });
             }
 
             function feedMap() {
@@ -171,6 +179,7 @@
                                 icon: iconImage
                             });
 
+                            oms.addMarker(marker);
                             attachInfoWindow(marker, infowindow, marker.title + " : " + obj.description + " Type : " + obj.type, obj);
                         });
                     } else {
@@ -180,11 +189,10 @@
             }
 
             $(document).ready(function () {
-                initMap();
                 feedMap();
             });
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAklw96N9rLd93ubr-F04CN7qi2ryKayAc&callback=initMap">
-        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAklw96N9rLd93ubr-F04CN7qi2ryKayAc&callback=initMap"></script>
+        <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.min.js?spiderfier_callback=initMap"></script>
     </body>
 </html>

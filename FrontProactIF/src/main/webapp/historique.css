@@ -64,6 +64,10 @@ tr{
     background: rgba(255, 255, 255, 0.8);
 }
 
+tr:hover{
+    background: rgba(200,200,200,0.8);
+}
+
 th {
     background-color: #4CAF50;
     color: white;
